@@ -12,3 +12,8 @@ Rectangle::Rectangle(float x, float y, float w, float h) {
     this->w = w;
     this->h = h;
 }
+
+// Checking if two rectangles collide.
+bool Rectangle::collides(const Rectangle& rect) const {
+    return false;
+}

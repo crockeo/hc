@@ -14,6 +14,9 @@ struct Rectangle {
 
     // Creating a god damn motherfucking rectangle.
     Rectangle(float, float, float, float);
+
+    // Checking if two rectangles collide.
+    bool collides(const Rectangle&) const;
 };
 
 #endif
