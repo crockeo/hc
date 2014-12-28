@@ -11,7 +11,11 @@
 
 // To distinguish between different HCExceptions.
 enum HCType {
-    HC_WINDOW_EXCEPTION
+    // When the game cannot open the SDL window.
+    HC_WINDOW_EXCEPTION,
+
+    // When the game cannot load an asset, or it has been destroyed.
+    HC_ASSET_EXCEPTION
 };
 
 // A custom exception for this project.
