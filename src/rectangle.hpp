@@ -15,6 +15,9 @@ struct Rectangle {
     // Creating a god damn motherfucking rectangle.
     Rectangle(float, float, float, float);
 
+    // Updating the SDL rectangle.
+    void updateSDLRect();
+
     // Checking if two rectangles collide.
     bool collides(const Rectangle&) const;
 };
