@@ -32,7 +32,9 @@ int main() {
         return 1;
     }
 
+    SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
     SDL_RenderClear(w.getRenderer());
+
     SDL_RenderCopy(w.getRenderer(),
                    tex,
                    nullptr,
