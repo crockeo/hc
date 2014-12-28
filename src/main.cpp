@@ -27,20 +27,21 @@ int main() {
     a.performLoads(w);
 
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
-    SDL_RenderClear(w.getRenderer());
 
-    Rectangle r(640 / 2 - 450 / 2, 480 / 2 - 150 / 2, 450, 150);
-    SDL_RenderCopy(w.getRenderer(),
-                   a.getSprite("res/test.png").getTexture(),
-                   nullptr,
-                   &r.sdlRect);
-
-    SDL_RenderPresent(w.getRenderer());
-
+    // Starting the game loop.
+    bool quit = false;
     SDL_Event e;
-    while (SDL_WaitEvent(&e)) {
-        if (e.type == SDL_QUIT)
-            break;
+    float dt = 0;
+    while (!quit) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+                break;
+            }
+        }
+
+        game::update(dt);
+        game::render(w, a);
     }
 
     return 0;
