@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 #include "rectangle.hpp"
+#include "sprite.hpp"
 #include "window.hpp"
 
 //////////
@@ -28,10 +29,7 @@ SDL_Texture* loadImage(Window& w, std::string path) {
 int main() {
     Window w("Hello World!", 640, 480, false);
 
-    SDL_Texture* tex = loadImage(w, "res/test.png");
-    if (tex == nullptr) {
-        return 1;
-    }
+    Sprite s(w.getRenderer(), "res/test.png");
 
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
     SDL_RenderClear(w.getRenderer());
@@ -39,7 +37,7 @@ int main() {
     Rectangle r(0, 0, 300, 200);
 
     SDL_RenderCopy(w.getRenderer(),
-                   tex,
+                   s.getTexture(),
                    nullptr,
                    &r.sdlRect);
 
