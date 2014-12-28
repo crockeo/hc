@@ -20,8 +20,7 @@ int main() {
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
     SDL_RenderClear(w.getRenderer());
 
-    Rectangle r(0, 0, 300, 200);
-
+    Rectangle r(640 / 2 - 450 / 2, 480 / 2 - 150 / 2, 450, 150);
     SDL_RenderCopy(w.getRenderer(),
                    s.getTexture(),
                    nullptr,
