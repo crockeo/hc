@@ -21,8 +21,7 @@ void game::update(float dt) {
     if (r.x > 650)
         r.x = -460;
 
-    r.x += 0.5;
-    r.updateSDLRect();
+    r.translate(0.5, 0.0);
 }
 
 // Rendering the game.

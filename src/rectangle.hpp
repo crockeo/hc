@@ -15,6 +15,12 @@ struct Rectangle {
     // Creating a god damn motherfucking rectangle.
     Rectangle(float, float, float, float);
 
+    // Translating a rectangle.
+    void translate(float, float);
+
+    // Translating a rectangle by creating a new one.
+    Rectangle fTranslate(float, float) const;
+
     // Updating the SDL rectangle.
     void updateSDLRect();
 

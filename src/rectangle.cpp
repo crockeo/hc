@@ -10,6 +10,21 @@ Rectangle::Rectangle(float x, float y, float w, float h) {
     this->updateSDLRect();
 }
 
+// Translating a rectangle.
+void Rectangle::translate(float dx, float dy) {
+    this->x += dx;
+    this->y += dy;
+
+    this->updateSDLRect();
+}
+
+// Translating a rectangle by creating a new one.
+Rectangle Rectangle::fTranslate(float dx, float dy) const {
+    Rectangle r = *this;
+    r.translate(dx, dy);
+    return r;
+}
+
 // Updating the SDL rectangle.
 void Rectangle::updateSDLRect() {
     this->sdlRect.x = (int)x;
