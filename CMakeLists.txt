@@ -11,8 +11,14 @@ set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/lib")
 # Setting the C++ 11 flag.
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
+# Defining the set of sources.
+set(SOURCES
+    src/window.cpp
+    src/main.cpp
+)
+
 # Actually setting up the executable.
-add_executable(hc src/main.cpp)
+add_executable(hc ${SOURCES})
 
 # Finding SDL2 and its things.
 find_package(SDL2 REQUIRED)
