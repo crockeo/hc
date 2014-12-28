@@ -40,6 +40,8 @@ int main() {
             }
         }
 
+        // TODO: Track delta time.
+
         game::update(dt);
         game::render(w, a);
     }
