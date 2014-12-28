@@ -2,8 +2,6 @@
 
 //////////////
 // Includes //
-#include <unordered_map>
-#include <vector>
 #include <tuple>
 
 #include "sprite.hpp"
@@ -12,16 +10,19 @@
 //////////
 // Code //
 
-//// A class to represent a map between strings and different sets of assets.
-//class Assets {
-//private:
-    //std::vector<std::tuple<std::string, AssetType>> bufferedLoads;
-    //std::unorder_map<std::string, Sprite> sprites;
-
-//public:
+// Performing a single asset load.
+void Assets::performLoad(Window& w, std::tuple<std::string, AssetType> pair) throw(HCException) {
+    switch (std::get<1>(pair)) {
+    // Loading a Sprite.
+    case HC_SPRITE_ASSET:
+        std::string path = std::get<0>(pair);
+        this->sprites[path] = new Sprite(w.getRenderer(), path);
+        break;
+    }
+}
 
 // Creating a set of assets from an already-created list of loads.
-Assets::Assets(std::vector<std::tuple<std::string, AssetType>> bufferedLoads) {
+Assets::Assets(std::queue<std::tuple<std::string, AssetType>> bufferedLoads) {
     this->bufferedLoads = bufferedLoads;
 }
 
@@ -34,10 +35,19 @@ Assets::~Assets() {
         delete std::get<1>(*it);
     }
 }
+// Inserting an asset load.
+void Assets::addAssetLoad(std::string path, AssetType type) {
+    this->bufferedLoads.push(std::make_tuple(path, type));
+}
 
 // Performing the set of asset loads.
-void Assets::performLoads(const Window& w) throw(HCException) {
-    // TODO: Stuff here.
+void Assets::performLoads(Window& w) throw(HCException) {
+    while (!this->bufferedLoads.empty()) {
+        std::tuple<std::string, AssetType> pair = this->bufferedLoads.front();
+        this->bufferedLoads.pop();
+
+        this->performLoad(w, pair);
+    }
 }
 
 // Accessing a Sprite.

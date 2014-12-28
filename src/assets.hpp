@@ -4,7 +4,7 @@
 //////////////
 // Includes //
 #include <unordered_map>
-#include <vector>
+#include <queue>
 #include <tuple>
 
 #include "sprite.hpp"
@@ -21,15 +21,18 @@ enum AssetType {
 // A class to represent a map between strings and different sets of assets.
 class Assets {
 private:
-    std::vector<std::tuple<std::string, AssetType>> bufferedLoads;
+    std::queue<std::tuple<std::string, AssetType>> bufferedLoads;
     std::unordered_map<std::string, Sprite*> sprites;
+
+    // Performing a single asset load.
+    void performLoad(Window&, std::tuple<std::string, AssetType>) throw(HCException);
 
 public:
     // Deleting the copy constructor.
     Assets(const Assets&) = delete;
 
     // Creating a set of assets from an already-created list of loads.
-    Assets(std::vector<std::tuple<std::string, AssetType>>);
+    Assets(std::queue<std::tuple<std::string, AssetType>>);
 
     // Creating an empty set of assets.
     Assets();
@@ -37,8 +40,11 @@ public:
     // Destroying all of the assets.
     ~Assets();
 
+    // Inserting an asset load.
+    void addAssetLoad(std::string, AssetType);
+
     // Performing the set of asset loads.
-    void performLoads(const Window&) throw(HCException);
+    void performLoads(Window&) throw(HCException);
 
     // Accessing a Sprite.
     Sprite getSprite(std::string);
