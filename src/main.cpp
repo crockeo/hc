@@ -32,10 +32,12 @@ int main() {
         return 1;
     }
 
+    SDL_RenderClear(w.getRenderer());
     SDL_RenderCopy(w.getRenderer(),
                    tex,
                    nullptr,
                    nullptr);
+
     SDL_RenderPresent(w.getRenderer());
 
     SDL_Event e;
