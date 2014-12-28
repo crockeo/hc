@@ -32,11 +32,25 @@ Window::Window(std::string title, int width, int height, bool fullscreen) {
         SDL_Quit();
         return;
     }
+
+    this->renderer = SDL_CreateRenderer(
+        this->window,
+        0,
+        SDL_RENDERER_ACCELERATED
+    );
+
+    if (this->renderer == nullptr) {
+        this->error = true;
+        SDL_DestroyWindow(this->window);
+        SDL_Quit();
+        return;
+    }
 }
 
 // Destroying a window.
 Window::~Window() {
     if (!this->error) {
+        SDL_DestroyRenderer(this->renderer);
         SDL_DestroyWindow(this->window);
         SDL_Quit();
     }

@@ -12,6 +12,7 @@
 // A class to represent an SDL window.
 class Window {
 private:
+    SDL_Renderer* renderer;
     SDL_Window* window;
     std::string title;
     int width, height;

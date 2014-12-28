@@ -1,7 +1,7 @@
 //////////////
 // Includes //
+#include <SDL_image.h>
 #include <SDL.h>
-#include <iostream>
 
 #include "window.hpp"
 
