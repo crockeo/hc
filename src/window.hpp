@@ -29,6 +29,25 @@ public:
 
     // Destroying a window.
     ~Window();
+
+    // Getting the pointer to the renderer.
+    SDL_Renderer* getRenderer();
+
+    // Getting the pointer to the window.
+    SDL_Window* getWindow();
+
+    // Getting the title.
+    std::string getTitle() const;
+
+    // Getting the size.
+    int getWidth() const;
+    int getHeight() const;
+
+    // Checking if the window is full-screen.
+    bool isFullscreen() const;
+
+    // Checking if the window is in error.
+    bool isError() const;
 };
 
 #endif

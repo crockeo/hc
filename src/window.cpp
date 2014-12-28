@@ -55,3 +55,21 @@ Window::~Window() {
         SDL_Quit();
     }
 }
+// Getting the pointer to the renderer.
+SDL_Renderer* Window::getRenderer() { return this->renderer; }
+
+// Getting the pointer to the window.
+SDL_Window* Window::getWindow() { return this->window; }
+
+// Getting the title.
+std::string Window::getTitle() const { return this->title; }
+
+// Getting the size.
+int Window::getWidth() const { return this->width; }
+int Window::getHeight() const { return this->height; }
+
+// Checking if the window is full-screen.
+bool Window::isFullscreen() const { return this->fullscreen; }
+
+// Checking if the window is in error.
+bool Window::isError() const { return this->error; }
