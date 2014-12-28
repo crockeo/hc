@@ -29,9 +29,15 @@ Sprite::Sprite(SDL_Renderer* r, SDL_Surface* s) throw(HCException) {
 // Loading a Sprite from a location on the disk.
 Sprite::Sprite(SDL_Renderer* r, std::string path) throw(HCException) : Sprite(r, IMG_Load(path.c_str())) { }
 
+// Copying the Sprite.
+Sprite::Sprite(const Sprite& s) {
+    this->tex = s.tex;
+    this->original = false;
+}
+
 // Destroying the sprite.
 Sprite::~Sprite() {
-    if (this->tex != NULL)
+    if (this->tex != NULL && this->original)
         SDL_DestroyTexture(this->tex);
 }
 

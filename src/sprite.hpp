@@ -14,6 +14,7 @@
 class Sprite {
 private:
     SDL_Texture* tex;
+    bool original;
 
 public:
     // Making a Sprite from an existing SDL_Texture.
@@ -24,6 +25,9 @@ public:
 
     // Loading a Sprite from a location on the disk.
     Sprite(SDL_Renderer*, std::string) throw(HCException);
+
+    // Copying the Sprite.
+    Sprite(const Sprite&);
 
     // Destroying the sprite.
     ~Sprite();
