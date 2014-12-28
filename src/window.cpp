@@ -8,17 +8,14 @@
 // Code //
 
 // Creating a new window.
-Window::Window(std::string title, int width, int height, bool fullscreen) {
+Window::Window(std::string title, int width, int height, bool fullscreen) throw(HCException) {
     this->title      = title;
     this->width      = width;
     this->height     = height;
     this->fullscreen = fullscreen;
-    this->error      = false;
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        this->error = true;
-        return;
-    }
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+        throw HCException("Failed to initialize SDL.\n", HC_WINDOW_EXCEPTION);
 
     this->window = SDL_CreateWindow(
         title.c_str(),
@@ -28,9 +25,8 @@ Window::Window(std::string title, int width, int height, bool fullscreen) {
     );
 
     if (this->window == nullptr) {
-        this->error = true;
         SDL_Quit();
-        return;
+        throw HCException("Failed to open SDL window.\n", HC_WINDOW_EXCEPTION);
     }
 
     this->renderer = SDL_CreateRenderer(
@@ -43,7 +39,7 @@ Window::Window(std::string title, int width, int height, bool fullscreen) {
         this->error = true;
         SDL_DestroyWindow(this->window);
         SDL_Quit();
-        return;
+        throw HCException("Failed to create SDL renderer.\n", HC_WINDOW_EXCEPTION);
     }
 }
 

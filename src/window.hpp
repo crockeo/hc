@@ -6,6 +6,8 @@
 #include <string>
 #include <SDL.h>
 
+#include "hcexception.hpp"
+
 //////////
 // Code //
 
@@ -25,7 +27,7 @@ public:
     Window(const Window&) = delete;
 
     // Creating a new window.
-    Window(std::string, int, int, bool);
+    Window(std::string, int, int, bool) throw(HCException);
 
     // Destroying a window.
     ~Window();
