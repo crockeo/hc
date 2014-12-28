@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <SDL.h>
 
+#include "rectangle.hpp"
 #include "window.hpp"
 
 //////////
@@ -35,10 +36,12 @@ int main() {
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
     SDL_RenderClear(w.getRenderer());
 
+    Rectangle r(0, 0, 300, 200);
+
     SDL_RenderCopy(w.getRenderer(),
                    tex,
                    nullptr,
-                   nullptr);
+                   &r.sdlRect);
 
     SDL_RenderPresent(w.getRenderer());
 

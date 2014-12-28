@@ -14,6 +14,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 # Defining the set of sources.
 set(SOURCES
     src/hcexception.cpp
+    src/rectangle.cpp
     src/window.cpp
     src/main.cpp
 )
