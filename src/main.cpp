@@ -6,6 +6,7 @@
 #include "rectangle.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
+#include "game.hpp"
 
 //////////
 // Code //
