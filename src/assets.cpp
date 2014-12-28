@@ -51,4 +51,7 @@ void Assets::performLoads(Window& w) throw(HCException) {
 }
 
 // Accessing a Sprite.
-Sprite Assets::getSprite(std::string name) { return *this->sprites[name]; }
+Sprite Assets::getSprite(std::string name) const {
+    Sprite s = *this->sprites.at(name);
+    return s;
+}

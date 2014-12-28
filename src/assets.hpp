@@ -47,7 +47,7 @@ public:
     void performLoads(Window&) throw(HCException);
 
     // Accessing a Sprite.
-    Sprite getSprite(std::string);
+    Sprite getSprite(std::string) const;
 };
 
 #endif
