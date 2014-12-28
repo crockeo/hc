@@ -26,7 +26,11 @@ int main() {
         return 1;
     }
 
-    SDL_Delay(2000);
+    SDL_Event e;
+    while (SDL_WaitEvent(&e)) {
+        if (e.type == SDL_QUIT)
+            break;
+    }
 
     SDL_DestroyWindow(window);
     SDL_Quit();
