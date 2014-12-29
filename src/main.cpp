@@ -50,6 +50,7 @@ void updateLoop() {
 
 // The loop to perform rendering.
 void renderLoop(Window& w, const Assets& a) {
+    int curr = getTimeMillis(), last = getTimeMillis();
     SDL_Event e;
 
     while (!quit) {
@@ -60,8 +61,17 @@ void renderLoop(Window& w, const Assets& a) {
             }
         }
 
-        SDL_Delay(16);
+        curr = getTimeMillis();
+        float dt = (curr - last) / 1000.f;
+
+        if (dt < 1.f / MAX_RENDERS_PER_SECOND)
+            std::this_thread::sleep_for(std::chrono::milliseconds(
+                (int)((1.f / MAX_RENDERS_PER_SECOND - dt) * 1000)
+            ));
+
         game::render(gs, w, a);
+
+        last = curr;
     }   
 }
 
