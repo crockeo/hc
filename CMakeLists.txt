@@ -16,6 +16,7 @@ set(SOURCES
     src/hcexception.cpp
     src/gamestate.cpp
     src/rectangle.cpp
+    src/keyboard.cpp
     src/assets.cpp
     src/sprite.cpp
     src/window.cpp

@@ -7,6 +7,7 @@
 
 #include "gamestate.hpp"
 #include "rectangle.hpp"
+#include "keyboard.hpp"
 #include "config.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
@@ -30,6 +31,7 @@ void updateLoop() {
     Delta d;
 
     while (!quit) {
+        keyboard::update();
         float dt = d.since();
 
         if (dt < 1.f / MAX_UPDATES_PER_SECOND)

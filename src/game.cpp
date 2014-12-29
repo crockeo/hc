@@ -2,9 +2,10 @@
 
 //////////////
 // Includes //
-#include <iostream>
+#include <SDL.h>
 
 #include "gamestate.hpp"
+#include "keyboard.hpp"
 #include "assets.hpp"
 #include "window.hpp"
 
@@ -16,7 +17,16 @@ void game::update(GameState& g, float dt) {
     if (g.position.x > 650)
         g.position.x = -460;
 
-    g.position.translate(320 * dt, 0);
+    if (keyboard::getKeyState(SDL_SCANCODE_D))
+        g.position.translate(320 * dt, 0);
+    if (keyboard::getKeyState(SDL_SCANCODE_A))
+        g.position.translate(-320 * dt, 0);
+    if (keyboard::getKeyState(SDL_SCANCODE_W))
+        g.position.translate(0, -320 * dt);
+    if (keyboard::getKeyState(SDL_SCANCODE_S))
+        g.position.translate(0, 320 * dt);
+
+    //g.position.translate(320 * dt, 0);
 }
 
 // Rendering the game.
