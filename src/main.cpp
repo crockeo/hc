@@ -27,11 +27,10 @@ bool quit = false;
 
 // The loop to perform updates.
 void updateLoop() {
-    int curr = getTimeMillis(), last = getTimeMillis();
+    Delta d;
 
     while (!quit) {
-        curr = getTimeMillis();
-        float dt = (curr - last) / 1000.f;
+        float dt = d.since();
 
         if (dt < 1.f / MAX_UPDATES_PER_SECOND)
             std::this_thread::sleep_for(std::chrono::milliseconds(
@@ -39,15 +38,13 @@ void updateLoop() {
             ));
 
         game::update(gs, dt);
-
-        last = curr;
     }
 }
 
 // The loop to perform rendering.
 void renderLoop(Window& w, const Assets& a) {
-    int curr = getTimeMillis(), last = getTimeMillis();
     SDL_Event e;
+    Delta d;
 
     while (!quit) {
         while (SDL_PollEvent(&e)) {
@@ -57,8 +54,7 @@ void renderLoop(Window& w, const Assets& a) {
             }
         }
 
-        curr = getTimeMillis();
-        float dt = (curr - last) / 1000.f;
+        float dt = d.since();
 
         if (dt < 1.f / MAX_RENDERS_PER_SECOND)
             std::this_thread::sleep_for(std::chrono::milliseconds(
@@ -66,8 +62,6 @@ void renderLoop(Window& w, const Assets& a) {
             ));
 
         game::render(gs, w, a);
-
-        last = curr;
     }   
 }
 
