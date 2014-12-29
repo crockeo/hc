@@ -1,7 +1,11 @@
 //////////////
 // Includes //
 #include <SDL_image.h>
+#include <chrono>
 #include <SDL.h>
+
+// GET RID OF THIS.
+#include <iostream>
 
 #include "rectangle.hpp"
 #include "sprite.hpp"
@@ -10,6 +14,11 @@
 
 //////////
 // Code //
+
+int getTimeMillis() {
+    auto now = std::chrono::system_clock::now();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+}
 
 // The assets!
 void initAssets(Assets& a) {
@@ -31,7 +40,8 @@ int main() {
     // Starting the game loop.
     bool quit = false;
     SDL_Event e;
-    float dt = 0;
+
+    int curr = getTimeMillis(), last = getTimeMillis();
     while (!quit) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
@@ -40,10 +50,13 @@ int main() {
             }
         }
 
-        // TODO: Track delta time.
+        curr = getTimeMillis();
+        float dt = (curr - last) / 1000.f;
 
         game::update(dt);
         game::render(w, a);
+
+        last = curr;
     }
 
     return 0;

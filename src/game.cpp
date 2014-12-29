@@ -21,7 +21,7 @@ void game::update(float dt) {
     if (r.x > 650)
         r.x = -460;
 
-    r.translate(0.5, 0.0);
+    r.translate(320 * dt, 0);
 }
 
 // Rendering the game.
