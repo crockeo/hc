@@ -5,11 +5,9 @@
 #include <thread>
 #include <SDL.h>
 
-// GET RID OF THIS.
-#include <iostream>
-
 #include "gamestate.hpp"
 #include "rectangle.hpp"
+#include "config.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
 #include "game.hpp"
@@ -38,6 +36,11 @@ void updateLoop() {
     while (!quit) {
         curr = getTimeMillis();
         float dt = (curr - last) / 1000.f;
+
+        if (dt < 1.f / MAX_UPDATES_PER_SECOND)
+            std::this_thread::sleep_for(std::chrono::milliseconds(
+                (int)((1.f / MAX_UPDATES_PER_SECOND - dt) * 1000)
+            ));
 
         game::update(gs, dt);
 
