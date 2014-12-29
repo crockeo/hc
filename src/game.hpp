@@ -15,7 +15,7 @@ namespace game {
     void update(GameState&, float);
 
     // Rendering the game.
-    void render(GameState&, Window&, const Assets&);
+    void render(GameState, Window&, const Assets&);
 }
 
 #endif

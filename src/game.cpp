@@ -20,7 +20,7 @@ void game::update(GameState& g, float dt) {
 }
 
 // Rendering the game.
-void game::render(GameState& g, Window& w, const Assets& a) {
+void game::render(GameState g, Window& w, const Assets& a) {
     SDL_RenderClear(w.getRenderer());
 
     SDL_RenderCopy(w.getRenderer(),
