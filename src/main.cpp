@@ -2,6 +2,7 @@
 // Includes //
 #include <SDL_image.h>
 #include <chrono>
+#include <thread>
 #include <SDL.h>
 
 // GET RID OF THIS.
@@ -26,6 +27,41 @@ void initAssets(Assets& a) {
     a.addAssetLoad("res/test.png", HC_SPRITE_ASSET);
 }
 
+// The (unfortunately global) state of the game.
+GameState gs;
+bool quit = false;
+
+// The loop to perform updates.
+void updateLoop() {
+    int curr = getTimeMillis(), last = getTimeMillis();
+
+    while (!quit) {
+        curr = getTimeMillis();
+        float dt = (curr - last) / 1000.f;
+
+        game::update(gs, dt);
+
+        last = curr;
+    }
+}
+
+// The loop to perform rendering.
+void renderLoop(Window& w, const Assets& a) {
+    SDL_Event e;
+
+    while (!quit) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+                break;
+            }
+        }
+
+        SDL_Delay(16);
+        game::render(gs, w, a);
+    }   
+}
+
 // Entry point!
 int main() {
     // Opening the window.
@@ -38,28 +74,14 @@ int main() {
 
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
 
-    // Starting the game loop.
-    int curr = getTimeMillis(), last = getTimeMillis();
-    bool quit = false;
-    GameState gs;
-    SDL_Event e;
+    // Spinning up the update thread.
+    std::thread updateThread(updateLoop);
 
-    while (!quit) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-                break;
-            }
-        }
+    // Performing the rendering.
+    renderLoop(w, a);
 
-        curr = getTimeMillis();
-        float dt = (curr - last) / 1000.f;
-
-        game::update(gs, dt);
-        game::render(gs, w, a);
-
-        last = curr;
-    }
+    // Waiting for the update thread to finish.
+    updateThread.join();
 
     return 0;
 }
