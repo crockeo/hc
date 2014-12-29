@@ -19,6 +19,7 @@ set(SOURCES
     src/assets.cpp
     src/sprite.cpp
     src/window.cpp
+    src/delta.cpp
     src/game.cpp
     src/main.cpp
 )

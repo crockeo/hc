@@ -10,15 +10,11 @@
 #include "config.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
+#include "delta.hpp"
 #include "game.hpp"
 
 //////////
 // Code //
-
-int getTimeMillis() {
-    auto now = std::chrono::system_clock::now();
-    return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
-}
 
 // The assets!
 void initAssets(Assets& a) {
