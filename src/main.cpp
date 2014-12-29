@@ -7,6 +7,7 @@
 // GET RID OF THIS.
 #include <iostream>
 
+#include "gamestate.hpp"
 #include "rectangle.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
@@ -38,10 +39,11 @@ int main() {
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
 
     // Starting the game loop.
+    int curr = getTimeMillis(), last = getTimeMillis();
     bool quit = false;
+    GameState gs;
     SDL_Event e;
 
-    int curr = getTimeMillis(), last = getTimeMillis();
     while (!quit) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
@@ -53,8 +55,8 @@ int main() {
         curr = getTimeMillis();
         float dt = (curr - last) / 1000.f;
 
-        game::update(dt);
-        game::render(w, a);
+        game::update(gs, dt);
+        game::render(gs, w, a);
 
         last = curr;
     }

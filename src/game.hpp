@@ -3,6 +3,7 @@
 
 //////////////
 // Includes //
+#include "gamestate.hpp"
 #include "assets.hpp"
 #include "window.hpp"
 
@@ -11,10 +12,10 @@
 
 namespace game {
     // Updating the game.
-    void update(float);
+    void update(GameState&, float);
 
     // Rendering the game.
-    void render(Window&, const Assets&);
+    void render(GameState&, Window&, const Assets&);
 }
 
 #endif
