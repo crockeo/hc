@@ -6,7 +6,9 @@
 #include <string>
 #include <vector>
 
+#include "hcexception.hpp"
 #include "sprite.hpp"
+#include "window.hpp"
 
 //////////
 // Code //
@@ -23,7 +25,7 @@ private:
 
 public:
     // Loading a SpriteMap from a file.
-    SpriteMap(std::string);
+    SpriteMap(Window&, std::string, int, int, int, int) throw(HCException);
 
     // A copy constructor!
     SpriteMap(const SpriteMap&);
