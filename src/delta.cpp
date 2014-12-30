@@ -13,14 +13,6 @@ int getTimeMillis() {
     return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
 }
 
-//// A utility to do some delta timing stuff.
-//class Delta {
-//private:
-    //int last, curr;
-    //bool first;
-
-//public:
-
 // Constructing a delta.
 Delta::Delta() {
     this->last = 0;
@@ -41,5 +33,3 @@ float Delta::since() {
 
     return dt;
 }
-
-//};
