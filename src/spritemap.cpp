@@ -32,11 +32,14 @@ SpriteMap::SpriteMap(Window& w, std::string path, int cols, int rows, int width,
             0, 0, 0, 0
         );
 
+        // TODO: Try to render to an SDL_Surface or something.
+
         SDL_Texture* tileTex = SDL_CreateTextureFromSurface(
             w.getRenderer(),
             tile
         );
         SDL_FreeSurface(tile);
+
         Sprite* s = new Sprite(tileTex);
         this->sprites.push_back(s);
     }
