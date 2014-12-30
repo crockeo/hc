@@ -12,21 +12,26 @@
 //////////
 // Code //
 
+const float accel = 640;
+float dx = 0, dy = 0;
+
 // Updating the game.
 void game::update(GameState& g, float dt) {
     if (g.position.x > 650)
         g.position.x = -460;
+    if (g.position.x < -460)
+        g.position.x = 650;
 
     if (keyboard::getKeyState(SDL_SCANCODE_D))
-        g.position.translate(320 * dt, 0);
+        dx += accel * dt;
     if (keyboard::getKeyState(SDL_SCANCODE_A))
-        g.position.translate(-320 * dt, 0);
+        dx -= accel * dt;
     if (keyboard::getKeyState(SDL_SCANCODE_W))
-        g.position.translate(0, -320 * dt);
+        dy -= accel * dt;
     if (keyboard::getKeyState(SDL_SCANCODE_S))
-        g.position.translate(0, 320 * dt);
+        dy += accel * dt;
 
-    //g.position.translate(320 * dt, 0);
+    g.position.translate(dx * dt, dy * dt);
 }
 
 // Rendering the game.
