@@ -12,24 +12,66 @@
 //////////
 // Code //
 
-const float accel = 640;
-float dx = 0, dy = 0;
+const float minspeed =  10;
+const float accel    = 640;
+
+bool  mx = false, my = false;
+float dx = 0    , dy = 0;
+
+bool around(float target, float offset, float value) {
+    return value < target + offset &&
+           value > target - offset;
+}
 
 // Updating the game.
 void game::update(GameState& g, float dt) {
+    mx = false;
+    my = false;
+
     if (g.position.x > 650)
         g.position.x = -460;
     if (g.position.x < -460)
         g.position.x = 650;
 
-    if (keyboard::getKeyState(SDL_SCANCODE_D))
+    if (keyboard::getKeyState(SDL_SCANCODE_D)) {
         dx += accel * dt;
-    if (keyboard::getKeyState(SDL_SCANCODE_A))
+        mx = true;
+    }
+
+    if (keyboard::getKeyState(SDL_SCANCODE_A)) {
         dx -= accel * dt;
-    if (keyboard::getKeyState(SDL_SCANCODE_W))
+        mx = true;
+    }
+
+    if (keyboard::getKeyState(SDL_SCANCODE_W)) {
         dy -= accel * dt;
-    if (keyboard::getKeyState(SDL_SCANCODE_S))
+        my = true;
+    }
+
+    if (keyboard::getKeyState(SDL_SCANCODE_S)) {
         dy += accel * dt;
+        my = true;
+    }
+
+    if (!mx) {
+        if (dx > 0)
+            dx -= accel * dt;
+        if (dx < 0)
+            dx += accel * dt;
+
+        if (around(0, minspeed, dx))
+            dx = 0;
+    }
+
+    if (!my) {
+        if (dy > 0)
+            dy -= accel * dt;
+        if (dy < 0)
+            dy += accel * dt;
+
+        if (around(0, minspeed, dy))
+            dy = 0;
+    }
 
     g.position.translate(dx * dt, dy * dt);
 }
