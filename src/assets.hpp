@@ -14,46 +14,32 @@
 //////////
 // Code //
 
-// An enum to represent the a set of asset types.
-enum AssetType {
-    HC_SPRITE_ASSET,
-    HC_SPRITE_MAP_ASSET
-};
-
 // A class to represent a map between strings and different sets of assets.
 class Assets {
 private:
-    std::queue<std::tuple<std::string, AssetType>> bufferedLoads;
     std::unordered_map<std::string, SpriteMap*> spriteMaps;
     std::unordered_map<std::string, Sprite*> sprites;
-
-    // Performing a single asset load.
-    void performLoad(Window&, std::tuple<std::string, AssetType>) throw(HCException);
 
 public:
     // Deleting the copy constructor.
     Assets(const Assets&) = delete;
 
-    // Creating a set of assets from an already-created list of loads.
-    Assets(std::queue<std::tuple<std::string, AssetType>>);
-
-    // Creating an empty set of assets.
+    // The default constructor.
     Assets();
 
     // Destroying all of the assets.
     ~Assets();
 
-    // Inserting an asset load.
-    void addAssetLoad(std::string, AssetType);
+    // Adding different types of assets.
+    void addSprite(Window&, std::string);
+    void addSpriteMap(Window&, std::string, int, int, int, int);
 
-    // Performing the set of asset loads.
-    void performLoads(Window&) throw(HCException);
-
-    // Accessing a Sprite.
+    // Accessing different types of assets.
     Sprite getSprite(std::string) const;
-
-    //Accessing a SpriteMap.
     SpriteMap getSpriteMap(std::string) const;
 };
+
+// Loading the set of assets for the rest of the program.
+void loadAssets(Window&, Assets&);
 
 #endif

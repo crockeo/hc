@@ -17,11 +17,6 @@
 //////////
 // Code //
 
-// The assets!
-void initAssets(Assets& a) {
-    a.addAssetLoad("res/test.png", HC_SPRITE_ASSET);
-}
-
 // The (unfortunately global) state of the game.
 GameState gs;
 bool quit = false;
@@ -67,8 +62,6 @@ void renderLoop(Window& w, const Assets& a) {
     }   
 }
 
-#include <iostream>
-
 // Entry point!
 int main() {
     // Opening the window.
@@ -76,9 +69,9 @@ int main() {
 
     // Loading and initializing assets.
     Assets a;
-    initAssets(a);
-    a.performLoads(w);
+    loadAssets(w, a);
 
+    // Setting the background render color.
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
 
     // Spinning up the update thread.

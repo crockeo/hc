@@ -11,27 +11,7 @@
 //////////
 // Code //
 
-// Performing a single asset load.
-void Assets::performLoad(Window& w, std::tuple<std::string, AssetType> pair) throw(HCException) {
-    std::string path = std::get<0>(pair);
-    switch (std::get<1>(pair)) {
-    // Loading a Sprite.
-    case HC_SPRITE_ASSET:
-        this->sprites[path] = new Sprite(w.getRenderer(), path);
-        break;
-    // Loading a SpriteMap.
-    case HC_SPRITE_MAP_ASSET:
-        // TODO: Find out how to load sprite maps.
-        break;
-    }
-}
-
-// Creating a set of assets from an already-created list of loads.
-Assets::Assets(std::queue<std::tuple<std::string, AssetType>> bufferedLoads) {
-    this->bufferedLoads = bufferedLoads;
-}
-
-// Creating an empty set of assets.
+// The default constructor.
 Assets::Assets() { }
 
 // Destroying all of the assets.
@@ -40,29 +20,29 @@ Assets::~Assets() {
         delete std::get<1>(*it);
     }
 }
-// Inserting an asset load.
-void Assets::addAssetLoad(std::string path, AssetType type) {
-    this->bufferedLoads.push(std::make_tuple(path, type));
+
+// Adding different types of assets.
+void Assets::addSprite(Window& w, std::string path) {
+    this->sprites[path] = new Sprite(w.getRenderer(), path);
 }
 
-// Performing the set of asset loads.
-void Assets::performLoads(Window& w) throw(HCException) {
-    while (!this->bufferedLoads.empty()) {
-        std::tuple<std::string, AssetType> pair = this->bufferedLoads.front();
-        this->bufferedLoads.pop();
-
-        this->performLoad(w, pair);
-    }
+void Assets::addSpriteMap(Window& w, std::string path, int cols, int rows, int width, int height) {
+    this->spriteMaps[path] = new SpriteMap(w, path, cols, rows, width, height);
 }
 
-// Accessing a Sprite.
+// Accessing different types of assets.
 Sprite Assets::getSprite(std::string name) const {
     Sprite s = *this->sprites.at(name);
     return s;
 }
 
-// Accessing a SpriteMap.
 SpriteMap Assets::getSpriteMap(std::string name) const {
     SpriteMap sm = *this->spriteMaps.at(name);
     return sm;
+}
+
+// Loading the set of assets for the rest of the program.
+void loadAssets(Window& w, Assets& a) {
+    a.addSprite(w, "res/test.png");
+    a.addSpriteMap(w, "res/forest_tiles.png", 15, 10, 16, 16);
 }
