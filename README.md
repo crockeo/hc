@@ -9,6 +9,7 @@ going to crash. And. Burn.
 
 * LINK - Author Name
 
+* [res/test.png](http://opengameart.org/content/mad-sun) - Vengadora
 * [res/forest_tiles.png](http://opengameart.org/content/forest-tiles) - surt
 
 ### License
