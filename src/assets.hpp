@@ -7,6 +7,7 @@
 #include <queue>
 #include <tuple>
 
+#include "spritemap.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
 
@@ -15,13 +16,15 @@
 
 // An enum to represent the a set of asset types.
 enum AssetType {
-    HC_SPRITE_ASSET
+    HC_SPRITE_ASSET,
+    HC_SPRITE_MAP_ASSET
 };
 
 // A class to represent a map between strings and different sets of assets.
 class Assets {
 private:
     std::queue<std::tuple<std::string, AssetType>> bufferedLoads;
+    std::unordered_map<std::string, SpriteMap*> spriteMaps;
     std::unordered_map<std::string, Sprite*> sprites;
 
     // Performing a single asset load.
@@ -48,6 +51,9 @@ public:
 
     // Accessing a Sprite.
     Sprite getSprite(std::string) const;
+
+    //Accessing a SpriteMap.
+    SpriteMap getSpriteMap(std::string) const;
 };
 
 #endif

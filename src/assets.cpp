@@ -4,6 +4,7 @@
 // Includes //
 #include <tuple>
 
+#include "spritemap.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
 
@@ -12,11 +13,15 @@
 
 // Performing a single asset load.
 void Assets::performLoad(Window& w, std::tuple<std::string, AssetType> pair) throw(HCException) {
+    std::string path = std::get<0>(pair);
     switch (std::get<1>(pair)) {
     // Loading a Sprite.
     case HC_SPRITE_ASSET:
-        std::string path = std::get<0>(pair);
         this->sprites[path] = new Sprite(w.getRenderer(), path);
+        break;
+    // Loading a SpriteMap.
+    case HC_SPRITE_MAP_ASSET:
+        // TODO: Find out how to load sprite maps.
         break;
     }
 }
@@ -54,4 +59,10 @@ void Assets::performLoads(Window& w) throw(HCException) {
 Sprite Assets::getSprite(std::string name) const {
     Sprite s = *this->sprites.at(name);
     return s;
+}
+
+// Accessing a SpriteMap.
+SpriteMap Assets::getSpriteMap(std::string name) const {
+    SpriteMap sm = *this->spriteMaps.at(name);
+    return sm;
 }

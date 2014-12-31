@@ -46,6 +46,8 @@ SpriteMap::SpriteMap(Window& w, std::string path, int cols, int rows, int width,
 
     SDL_FreeSurface(surf);
 
+    this->width = cols;
+    this->height = rows;
     this->original = true;
 }
 

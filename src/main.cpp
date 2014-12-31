@@ -5,6 +5,8 @@
 #include <thread>
 #include <SDL.h>
 
+#include "spritemap.hpp"
+
 #include "gamestate.hpp"
 #include "rectangle.hpp"
 #include "keyboard.hpp"
@@ -67,10 +69,19 @@ void renderLoop(Window& w, const Assets& a) {
     }   
 }
 
+#include <iostream>
+
 // Entry point!
 int main() {
     // Opening the window.
     Window w("Hello World!", 640, 480, false);
+
+    // TESTING THINGS
+    try {
+        SpriteMap sm(w, "res/forest_tiles.png", 15, 10, 16, 16);
+    } catch (HCException& hce) {
+        std::cout << hce.what() << std::endl;
+    }
 
     // Loading and initializing assets.
     Assets a;
