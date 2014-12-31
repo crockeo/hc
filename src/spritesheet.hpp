@@ -38,9 +38,6 @@ public:
 
     // Blitting a specific tile.
     void blit(Window&, Rectangle, int, int);
-    
-    // Blitting a portion of a specific tile.
-    void blit(Window&, Rectangle, Rectangle, int, int);
 };
 
 #endif
