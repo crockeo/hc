@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "spritesheet.hpp"
+#include "animation.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
 
@@ -27,4 +28,8 @@ void loadAssets(Window& w, Assets& a) {
     a.spriteSheets.emplace(std::piecewise_construct,
                            std::make_tuple("res/forest_tiles.png"),
                            std::make_tuple(w.getRenderer(), "res/forest_tiles.png", 15, 10, 16, 16));
+
+    a.animations.emplace(std::piecewise_construct,
+                         std::make_tuple("res/forest_tiles.png"),
+                         std::make_tuple(a.spriteSheets.at("res/forest_tiles.png"), 1, true));
 }

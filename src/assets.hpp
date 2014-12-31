@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include "spritesheet.hpp"
+#include "animation.hpp"
 #include "sprite.hpp"
 
 //////////
@@ -14,6 +15,7 @@
 // A container for a set of assets.
 struct Assets {
     std::unordered_map<std::string, SpriteSheet> spriteSheets;
+    std::unordered_map<std::string, Animation> animations;
     std::unordered_map<std::string, Sprite> sprites;
 
     // The default constructor.
