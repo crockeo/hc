@@ -38,11 +38,13 @@ void game::update(GameState& g, float dt) {
 void game::render(GameState g, Window& w, const Assets& a) {
     Rectangle r(0, 0, 64, 64);
     Rectangle s(0, 0, 16, 16);
+    Rectangle r2(80, 0, 64, 64);
 
     SDL_RenderClear(w.getRenderer());
 
     a.sprites.at("res/test.png").blit(w, g.position);
     a.sprites.at("res/forest_tiles.png").blit(w, r, s);
+    a.spriteSheets.at("res/forest_tiles.png").blit(w, r2, 0, 0);
 
     SDL_RenderPresent(w.getRenderer());
 }

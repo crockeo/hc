@@ -16,7 +16,15 @@ Assets::Assets() { }
 
 // Loading the set of assets for the rest of the program.
 void loadAssets(Window& w, Assets& a) {
-    //a.spriteSheets.emplace("res/forest_tiles.png", w.getRenderer(), "res/forest_tiles.png", 15, 10, 16, 16);
-    //a.sprites.emplace(std::piecewise_construct, "res/forest_tiles.png", w.getRenderer(), "res/test.png");
-    //a.sprites.insert("res/test.png", new Sprite(w.getRenderer(), "res/test.png"));
+    a.sprites.emplace(std::piecewise_construct,
+                      std::make_tuple("res/test.png"),
+                      std::make_tuple(w.getRenderer(), "res/test.png"));
+
+    a.sprites.emplace(std::piecewise_construct,
+                      std::make_tuple("res/forest_tiles.png"),
+                      std::make_tuple(w.getRenderer(), "res/forest_tiles.png"));
+
+    a.spriteSheets.emplace(std::piecewise_construct,
+                           std::make_tuple("res/forest_tiles.png"),
+                           std::make_tuple(w.getRenderer(), "res/forest_tiles.png", 15, 10, 16, 16));
 }
