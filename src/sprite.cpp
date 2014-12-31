@@ -5,6 +5,9 @@
 #include <SDL_image.h>
 #include <SDL.h>
 
+#include "rectangle.hpp"
+#include "window.hpp"
+
 //////////
 // Code //
 
@@ -41,9 +44,18 @@ Sprite::~Sprite() {
         SDL_DestroyTexture(this->tex);
 }
 
-// Accessing the underlying texture.
-SDL_Texture* Sprite::getTexture() throw(HCException) {
-    if (this->tex == nullptr)
-        throw HCException("SDL texture has been destroyed.\n", HC_ASSET_EXCEPTION);
-    return this->tex;
+// Blitting this whole sprite.
+void Sprite::blit(Window& w, Rectangle dst) {
+    SDL_RenderCopy(w.getRenderer(),
+                   this->tex,
+                   nullptr,
+                   &dst.sdlRect);
+}
+
+// Blitting a portion of this sprite.
+void Sprite::blit(Window& w, Rectangle dst, Rectangle src) {
+    SDL_RenderCopy(w.getRenderer(),
+                   this->tex,
+                   &src.sdlRect,
+                   &dst.sdlRect);
 }

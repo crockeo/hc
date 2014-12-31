@@ -7,7 +7,6 @@
 #include <queue>
 #include <tuple>
 
-#include "spritemap.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
 
@@ -17,7 +16,6 @@
 // A class to represent a map between strings and different sets of assets.
 class Assets {
 private:
-    std::unordered_map<std::string, SpriteMap*> spriteMaps;
     std::unordered_map<std::string, Sprite*> sprites;
 
 public:
@@ -32,11 +30,9 @@ public:
 
     // Adding different types of assets.
     void addSprite(Window&, std::string);
-    void addSpriteMap(Window&, std::string, int, int, int, int);
 
     // Accessing different types of assets.
     Sprite getSprite(std::string) const;
-    SpriteMap getSpriteMap(std::string) const;
 };
 
 // Loading the set of assets for the rest of the program.

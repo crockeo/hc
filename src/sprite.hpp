@@ -6,6 +6,8 @@
 #include <SDL.h>
 
 #include "hcexception.hpp"
+#include "rectangle.hpp"
+#include "window.hpp"
 
 //////////
 // Code //
@@ -32,8 +34,11 @@ public:
     // Destroying the sprite.
     ~Sprite();
 
-    // Accessing the underlying texture.
-    SDL_Texture* getTexture() throw(HCException);
+    // Blitting this whole sprite.
+    void blit(Window&, Rectangle);
+
+    // Blitting a portion of this sprite.
+    void blit(Window&, Rectangle, Rectangle);
 };
 
 #endif

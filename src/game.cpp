@@ -37,18 +37,12 @@ void game::update(GameState& g, float dt) {
 // Rendering the game.
 void game::render(GameState g, Window& w, const Assets& a) {
     Rectangle r(0, 0, 64, 64);
+    Rectangle s(0, 0, 16, 16);
 
     SDL_RenderClear(w.getRenderer());
 
-    SDL_RenderCopy(w.getRenderer(),
-                   a.getSprite("res/test.png").getTexture(),
-                   nullptr,
-                   &g.position.sdlRect);
-
-    SDL_RenderCopy(w.getRenderer(),
-                   a.getSpriteMap("res/forest_tiles.png").getSprite(0, 0).getTexture(),
-                   nullptr,
-                   &r.sdlRect);
+    a.getSprite("res/test.png").blit(w, g.position);
+    a.getSprite("res/forest_tiles.png").blit(w, r, s);
 
     SDL_RenderPresent(w.getRenderer());
 }
