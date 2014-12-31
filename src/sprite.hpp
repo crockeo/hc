@@ -35,10 +35,10 @@ public:
     ~Sprite();
 
     // Blitting this whole sprite.
-    void blit(Window&, Rectangle);
+    void blit(Window&, Rectangle) const;
 
     // Blitting a portion of this sprite.
-    void blit(Window&, Rectangle, Rectangle);
+    void blit(Window&, Rectangle, Rectangle) const;
 };
 
 #endif

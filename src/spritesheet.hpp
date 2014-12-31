@@ -37,7 +37,7 @@ public:
     ~SpriteSheet();
 
     // Blitting a specific tile.
-    void blit(Window&, Rectangle, int, int);
+    void blit(Window&, Rectangle, int, int) const;
 };
 
 #endif

@@ -45,7 +45,7 @@ Sprite::~Sprite() {
 }
 
 // Blitting this whole sprite.
-void Sprite::blit(Window& w, Rectangle dst) {
+void Sprite::blit(Window& w, Rectangle dst) const {
     SDL_RenderCopy(w.getRenderer(),
                    this->tex,
                    nullptr,
@@ -53,7 +53,7 @@ void Sprite::blit(Window& w, Rectangle dst) {
 }
 
 // Blitting a portion of this sprite.
-void Sprite::blit(Window& w, Rectangle dst, Rectangle src) {
+void Sprite::blit(Window& w, Rectangle dst, Rectangle src) const {
     SDL_RenderCopy(w.getRenderer(),
                    this->tex,
                    &src.sdlRect,

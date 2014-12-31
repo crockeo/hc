@@ -2,8 +2,9 @@
 
 //////////////
 // Includes //
-#include <tuple>
+#include <unordered_map>
 
+#include "spritesheet.hpp"
 #include "sprite.hpp"
 #include "window.hpp"
 
@@ -13,26 +14,9 @@
 // The default constructor.
 Assets::Assets() { }
 
-// Destroying all of the assets.
-Assets::~Assets() {
-    for (auto it = this->sprites.begin(); it != this->sprites.end(); it++) {
-        delete std::get<1>(*it);
-    }
-}
-
-// Adding different types of assets.
-void Assets::addSprite(Window& w, std::string path) {
-    this->sprites[path] = new Sprite(w.getRenderer(), path);
-}
-
-// Accessing different types of assets.
-Sprite Assets::getSprite(std::string name) const {
-    Sprite s = *this->sprites.at(name);
-    return s;
-}
-
 // Loading the set of assets for the rest of the program.
 void loadAssets(Window& w, Assets& a) {
-    a.addSprite(w, "res/test.png");
-    a.addSprite(w, "res/forest_tiles.png");
+    //a.spriteSheets.emplace("res/forest_tiles.png", w.getRenderer(), "res/forest_tiles.png", 15, 10, 16, 16);
+    //a.sprites.emplace(std::piecewise_construct, "res/forest_tiles.png", w.getRenderer(), "res/test.png");
+    //a.sprites.insert("res/test.png", new Sprite(w.getRenderer(), "res/test.png"));
 }

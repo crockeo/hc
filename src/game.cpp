@@ -41,8 +41,8 @@ void game::render(GameState g, Window& w, const Assets& a) {
 
     SDL_RenderClear(w.getRenderer());
 
-    a.getSprite("res/test.png").blit(w, g.position);
-    a.getSprite("res/forest_tiles.png").blit(w, r, s);
+    a.sprites.at("res/test.png").blit(w, g.position);
+    a.sprites.at("res/forest_tiles.png").blit(w, r, s);
 
     SDL_RenderPresent(w.getRenderer());
 }

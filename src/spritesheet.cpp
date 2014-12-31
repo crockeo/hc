@@ -50,7 +50,7 @@ SpriteSheet::~SpriteSheet() {
 
 
 // Blitting a specific tile.
-void SpriteSheet::blit(Window& w, Rectangle dst, int x, int y) {
+void SpriteSheet::blit(Window& w, Rectangle dst, int x, int y) const {
     Rectangle r(x * this->width, y * this->height,
                     this->width,     this->height);
 
