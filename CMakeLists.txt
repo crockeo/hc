@@ -15,6 +15,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 set(SOURCES
     src/hcexception.cpp
     src/spritesheet.cpp
+    src/animation.cpp
     src/gamestate.cpp
     src/rectangle.cpp
     src/keyboard.cpp

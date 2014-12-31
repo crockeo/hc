@@ -38,6 +38,10 @@ public:
 
     // Blitting a specific tile.
     void blit(Window&, Rectangle, int, int) const;
+
+    // Accessors
+    int getCols() const;
+    int getRows() const;
 };
 
 #endif

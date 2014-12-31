@@ -56,3 +56,7 @@ void SpriteSheet::blit(Window& w, Rectangle dst, int x, int y) const {
 
     this->sprite->blit(w, dst, r);
 }
+
+// Accessors
+int SpriteSheet::getCols() const { return this->cols; }
+int SpriteSheet::getRows() const { return this->rows; }
