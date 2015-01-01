@@ -28,6 +28,7 @@ set(SOURCES
     src/timer.cpp
     src/game.cpp
     src/main.cpp
+    src/ecp.cpp
 )
 
 # Actually setting up the executable.
