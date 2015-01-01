@@ -22,6 +22,7 @@ Animation::Animation(SpriteSheet ss, std::vector<std::tuple<int, int>> order, fl
     this->order     = order;
     this->frameTime = frameTime;
     this->repeats   = repeats;
+    this->timer     = Timer(frameTime * this->order.size());
 }
 
 // Constructing an animation with the default ordering (top left to bottom
@@ -33,6 +34,7 @@ Animation::Animation(SpriteSheet ss, float frameTime, bool repeats) : sheet(ss) 
 
     this->frameTime = frameTime;
     this->repeats   = repeats;
+    this->timer     = Timer(frameTime * this->order.size());
 }
 
 // Getting the timer that belongs to this Animation.

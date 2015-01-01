@@ -8,4 +8,4 @@
 // Code //
 
 // Constructing a default game state.
-GameState::GameState() : position(0, 0, 450, 150) { }
+GameState::GameState() : position(0, 0, 100, 100) { }
