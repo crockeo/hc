@@ -7,10 +7,18 @@
 //////////
 // Code //
 
+// Constructing a timer with a cap.
+Timer::Timer(float cap) {
+    this->running = false;
+    this->accum = 0;
+    this->cap = cap;
+}
+
 // Constructing a default timer.
 Timer::Timer() {
     this->running = false;
     this->accum = 0;
+    this->cap = 0;
 }
 
 // Starting the timer.
@@ -32,6 +40,9 @@ void Timer::reset() {
 
 // Updating the timer.
 void Timer::update() {
+    if (this->cap != 0)
+        if (this->accum > this->cap)
+            this->accum -= this->cap;
     if (this->running)
         this->accum += this->delta.since();
 }

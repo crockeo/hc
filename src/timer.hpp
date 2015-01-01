@@ -14,15 +14,19 @@ private:
     bool running;
     float accum;
     Delta delta;
+    float cap;
 
 public:
+    // Constructing a timer with a cap.
+    Timer(float);
+
     // Constructing a default timer.
     Timer();
 
     // Starting the timer.
     void start();
 
-    // Stopping the timer (such that if it's 
+    // Stopping the timer.
     void stop();
 
     // Resetting the accumulated time.
