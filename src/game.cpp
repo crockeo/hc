@@ -34,8 +34,8 @@ void game::update(GameState& g, float dt) {
     my = false;
 
     if (g.position.x > 650)
-        g.position.x = -460;
-    if (g.position.x < -460)
+        g.position.x = -g.position.w - 10;
+    if (g.position.x < -g.position.w - 10)
         g.position.x = 650;
 
     if (keyboard::getKeyState(SDL_SCANCODE_D)) {
