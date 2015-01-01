@@ -9,6 +9,8 @@
 #include "assets.hpp"
 #include "window.hpp"
 
+#include <iostream>
+
 //////////
 // Code //
 
@@ -25,6 +27,9 @@ bool around(float target, float offset, float value) {
 
 // Updating the game.
 void game::update(GameState& g, float dt) {
+    for (auto it = g.timers.begin(); it != g.timers.end(); it++)
+        std::get<1>(*it).update();
+
     mx = false;
     my = false;
 
@@ -81,12 +86,14 @@ void game::render(GameState g, Window& w, const Assets& a) {
     Rectangle r(0, 0, 64, 64);
     Rectangle s(0, 0, 16, 16);
     Rectangle r2(80, 0, 64, 64);
+    Rectangle r3(0, 80, 64, 64);
 
     SDL_RenderClear(w.getRenderer());
 
     a.sprites.at("res/test.png").blit(w, g.position);
     a.sprites.at("res/forest_tiles.png").blit(w, r, s);
     a.spriteSheets.at("res/forest_tiles.png").blit(w, r2, 0, 0);
+    a.animations.at("res/forest_tiles.png").blit(w, r3);
 
     SDL_RenderPresent(w.getRenderer());
 }

@@ -3,7 +3,11 @@
 
 //////////////
 // Includes //
+#include <unordered_map>
+#include <string>
+
 #include "rectangle.hpp"
+#include "timer.hpp"
 
 //////////
 // Code //
@@ -12,6 +16,8 @@
 struct GameState {
     // Constructing a default game state.
     GameState();
+
+    std::unordered_map<std::string, Timer&> timers;
 
     Rectangle position;
 };

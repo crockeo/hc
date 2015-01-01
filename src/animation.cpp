@@ -35,6 +35,9 @@ Animation::Animation(SpriteSheet ss, float frameTime, bool repeats) : sheet(ss) 
     this->repeats   = repeats;
 }
 
+// Getting the timer that belongs to this Animation.
+Timer& Animation::getTimer() { return this->timer; }
+
 // Rendering a specific frame in an animation.
 void Animation::blit(Window& w, Rectangle dst, int frame) const {
     auto pos = this->order[frame];
@@ -44,5 +47,5 @@ void Animation::blit(Window& w, Rectangle dst, int frame) const {
 // Rendering an animation's current frame.
 void Animation::blit(Window& w, Rectangle dst) const {
     // TODO: Determine the current time.
-    this->blit(w, dst, this->determineIndex(0));
+    this->blit(w, dst, this->determineIndex(this->timer.getTime()));
 }

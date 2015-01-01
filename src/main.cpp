@@ -18,11 +18,10 @@
 // Code //
 
 // The (unfortunately global) state of the game.
-GameState gs;
 bool quit = false;
 
 // The loop to perform updates.
-void updateLoop() {
+void updateLoop(GameState& gs) {
     Delta d;
 
     while (!quit) {
@@ -39,7 +38,7 @@ void updateLoop() {
 }
 
 // The loop to perform rendering.
-void renderLoop(Window& w, const Assets& a) {
+void renderLoop(const GameState& gs, Window& w, const Assets& a) {
     SDL_Event e;
     Delta d;
 
@@ -71,14 +70,21 @@ int main() {
     Assets a;
     loadAssets(w, a);
 
+    // Initializing the game state.
+    GameState gs;
+    for (auto it = a.animations.begin(); it != a.animations.end(); it++) {
+        std::get<1>(*it).getTimer().start();
+        gs.timers.insert(std::pair<std::string, Timer&>(std::get<0>(*it), std::get<1>(*it).getTimer()));
+    }
+
     // Setting the background render color.
     SDL_SetRenderDrawColor(w.getRenderer(), 255, 0, 255, 255);
 
     // Spinning up the update thread.
-    std::thread updateThread(updateLoop);
+    std::thread updateThread(updateLoop, std::ref(gs));
 
     // Performing the rendering.
-    renderLoop(w, a);
+    renderLoop(gs, w, a);
 
     // Waiting for the update thread to finish.
     updateThread.join();
