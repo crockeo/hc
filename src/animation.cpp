@@ -12,12 +12,9 @@
 //////////
 // Code //
 
-// TODO: Do the things with timing for this animation stuff. I think that is useful.
-
 // Determining the index of order for a given time.
 int Animation::determineIndex(float time) const {
-    // TODO: DO THIS PART :)
-    return 0;
+    return (int)(time / this->frameTime);
 }
 
 // Constructing an animation from all required info.
