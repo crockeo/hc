@@ -14,7 +14,7 @@
 //////////
 // Code //
 
-const float minspeed =  10;
+const float minspeed =   5;
 const float accel    = 640;
 
 bool  mx = false, my = false;
@@ -39,22 +39,34 @@ void game::update(GameState& g, float dt) {
         g.position.x = 650;
 
     if (keyboard::getKeyState(SDL_SCANCODE_D)) {
-        dx += accel * dt;
+        if (dx < 0)
+            dx += 2 * accel * dt;
+        else
+            dx += accel * dt;
         mx = true;
     }
 
     if (keyboard::getKeyState(SDL_SCANCODE_A)) {
-        dx -= accel * dt;
+        if (dx > 0)
+            dx -= 2 * accel * dt;
+        else
+            dx -= accel * dt;
         mx = true;
     }
 
     if (keyboard::getKeyState(SDL_SCANCODE_W)) {
-        dy -= accel * dt;
+        if (dy > 0)
+            dy -= 2 * accel * dt;
+        else
+            dy -= accel * dt;
         my = true;
     }
 
     if (keyboard::getKeyState(SDL_SCANCODE_S)) {
-        dy += accel * dt;
+        if (dy < 0)
+            dy += 2 * accel * dt;
+        else
+            dy += accel * dt;
         my = true;
     }
 
