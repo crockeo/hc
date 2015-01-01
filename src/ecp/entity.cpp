@@ -1,5 +1,14 @@
 #include "entity.hpp"
 
+//////////////
+// Includes //
+#include <unordered_map>
+#include <typeindex>
+
+#include "../hcexception.hpp"
+#include "../gamestate.hpp"
+#include "component.hpp"
+
 //////////
 // Code //
 
@@ -15,7 +24,7 @@ Entity::Entity(int id) : components() {
 }
 
 // Constructing a new entity 
-Entity Entity::updateComponents(const GameState& gs) {
+Entity Entity::updateComponents(const GameState& gs) throw(HCException) {
     std::unordered_map<std::type_index, Component> newComponents;
     for (auto it = this->components.begin(); it != this->components.end(); it++)
         newComponents[std::get<0>(*it)] = std::get<1>(*it).update(gs);

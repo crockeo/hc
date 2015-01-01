@@ -5,8 +5,8 @@
 // Includes //
 #include <unordered_map>
 #include <typeindex>
-#include <typeinfo>
 
+#include "../hcexception.hpp"
 #include "../gamestate.hpp"
 #include "component.hpp"
 
@@ -27,7 +27,7 @@ public:
     Entity(int);
 
     // Constructing a new entity 
-    Entity updateComponents(const GameState&);
+    Entity updateComponents(const GameState&) throw(HCException);
     
     // Pushing a component to the Entity.
     void addComponent(Component);
