@@ -23,6 +23,7 @@ set(SOURCES
     src/sprite.cpp
     src/window.cpp
     src/delta.cpp
+    src/timer.cpp
     src/game.cpp
     src/main.cpp
 )
