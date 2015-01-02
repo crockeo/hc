@@ -9,8 +9,6 @@
 #include "assets.hpp"
 #include "window.hpp"
 
-#include <iostream>
-
 //////////
 // Code //
 
@@ -19,6 +17,7 @@ const float accel    = 640;
 
 bool  mx = false, my = false;
 float dx = 0    , dy = 0;
+bool  onGround = false;
 
 bool around(float target, float offset, float value) {
     return value < target + offset &&
@@ -54,20 +53,8 @@ void game::update(GameState& g, float dt) {
         mx = true;
     }
 
-    if (keyboard::getKeyState(SDL_SCANCODE_W)) {
-        if (dy > 0)
-            dy -= 2 * accel * dt;
-        else
-            dy -= accel * dt;
-        my = true;
-    }
-
-    if (keyboard::getKeyState(SDL_SCANCODE_S)) {
-        if (dy < 0)
-            dy += 2 * accel * dt;
-        else
-            dy += accel * dt;
-        my = true;
+    if (onGround && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
+        dy = -400;
     }
 
     if (!mx) {
@@ -80,14 +67,13 @@ void game::update(GameState& g, float dt) {
             dx = 0;
     }
 
-    if (!my) {
-        if (dy > 0)
-            dy -= accel * dt;
-        if (dy < 0)
-            dy += accel * dt;
-
-        if (around(0, minspeed, dy))
-            dy = 0;
+    if (g.position.y + g.position.h < 481) {
+        dy += accel * dt;
+        onGround = false;
+    } else {
+        g.position.y = 480 - g.position.h;
+        onGround = true;
+        dy = 0;
     }
 
     g.position.translate(dx * dt, dy * dt);
