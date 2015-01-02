@@ -27,7 +27,7 @@ public:
     Entity(int);
 
     // Constructing a new entity 
-    Entity update(const GameState&) throw(HCException);
+    Entity update(const GameState&, float) throw(HCException);
     
     // Pushing a component to the Entity.
     void addComponent(Component);

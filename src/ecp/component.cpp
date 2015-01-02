@@ -11,4 +11,4 @@
 Component::Component() { }
 
 // Updating the global game state somehow.
-Component Component::update(const GameState& gs) { return *this; }
+Component Component::update(const GameState& gs, float dt) { return *this; }

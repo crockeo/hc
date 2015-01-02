@@ -16,18 +16,18 @@
 // A manager for the entity component system.
 class ECP {
 private:
-    std::unordered_map<int, Entity> entities;
+    std::vector<Entity> entities;
     int index;
 
 public:
     // Creating a new ECP, filled with data.
-    ECP(std::unordered_map<int, Entity>, int);
+    ECP(std::vector<Entity>, int);
 
     // Creating a new, empty ECP.
     ECP();
 
     // Updating the ECP and creating a new copy.
-    ECP update(const GameState&);
+    ECP update(const GameState&, float);
 
     // Creating a new entity in the ECP (with a vector of components).
     int newEntity(std::vector<Component>);

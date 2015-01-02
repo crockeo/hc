@@ -15,7 +15,7 @@ public:
     Component();
 
     // Updating the global game state somehow.
-    virtual Component update(const GameState&);
+    virtual Component update(const GameState&, float);
 };
 
 #endif
