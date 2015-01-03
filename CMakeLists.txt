@@ -13,10 +13,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 # Defining the set of sources.
 set(SOURCES
-    src/ecp/component.cpp
     src/hcexception.cpp
     src/spritesheet.cpp
-    src/ecp/entity.cpp
     src/animation.cpp
     src/gamestate.cpp
     src/rectangle.cpp
@@ -28,7 +26,6 @@ set(SOURCES
     src/timer.cpp
     src/game.cpp
     src/main.cpp
-    src/ecp.cpp
 )
 
 # Actually setting up the executable.
