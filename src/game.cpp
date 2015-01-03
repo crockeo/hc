@@ -15,6 +15,8 @@
 const float minspeed =   5;
 const float accel    = 640;
 
+Rectangle thingy(2, 400, 20, 80);
+
 bool  mx = false, my = false;
 float dx = 0    , dy = 0;
 bool  onGround = false;
@@ -28,6 +30,11 @@ bool around(float target, float offset, float value) {
 void game::update(GameState& g, float dt) {
     for (auto it = g.timers.begin(); it != g.timers.end(); it++)
         std::get<1>(*it).update();
+
+    if (g.position.collides(thingy)) {
+        g.position.x = thingy.right();
+        dx = 0;
+    }
 
     mx = false;
     my = false;
@@ -89,6 +96,7 @@ void game::render(GameState g, Window& w, const Assets& a) {
 
     SDL_RenderClear(w.getRenderer());
 
+    a.spriteSheets.at("res/forest_tiles.png").blit(w, thingy, 1, 0);
     a.sprites.at("res/forest_tiles.png").blit(w, r, s);
     a.spriteSheets.at("res/forest_tiles.png").blit(w, r2, 0, 0);
     a.animations.at("res/forest_tiles.png").blit(w, r3);

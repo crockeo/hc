@@ -20,7 +20,7 @@ void Rectangle::translate(float dx, float dy) {
 
 // Translating a rectangle by creating a new one.
 Rectangle Rectangle::fTranslate(float dx, float dy) const {
-    Rectangle r = *this;
+    Rectangle r(*this);
     r.translate(dx, dy);
     return r;
 }
@@ -41,9 +41,17 @@ float Rectangle::right()  const { return this->x + this->w; }
 
 // Checking if two rectangles collide.
 bool Rectangle::collides(const Rectangle& rect) const {
-    return ((this->left()  < rect.right() && this->left()  > rect.left()) ||
-            (this->right() > rect.left()  && this->right() < rect.right())) &&
+    Rectangle sw = this->w <= rect.w ? *this : rect;
+    Rectangle bw = this->w >  rect.w ? *this : rect;
 
-           ((this->top()    < rect.bottom() && this->top()    > rect.top()) &&
-            (this->bottom() > rect.top()    && this->bottom() < rect.bottom()));
+    Rectangle sh = this->h <= rect.h ? *this : rect;
+    Rectangle bh = this->h >  rect.h ? *this : rect;
+
+    bool cLeft   = sw.left()   < bw.right()  && sw.left()   > bw.left();
+    bool cRight  = sw.right()  > bw.left()   && sw.right()  < bw.right();
+
+    bool cTop    = sh.top()    < bh.bottom() && sh.top()    > bh.top();
+    bool cBottom = sh.bottom() > bh.top()    && sh.bottom() < bh.bottom();
+
+    return (cLeft || cRight) && (cTop || cBottom);
 }
