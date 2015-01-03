@@ -24,6 +24,12 @@ struct Rectangle {
     // Updating the SDL rectangle.
     void updateSDLRect();
 
+    // Getting different sides of the rectangle.
+    float top()    const;
+    float bottom() const;
+    float left()   const;
+    float right()  const;
+
     // Checking if two rectangles collide.
     bool collides(const Rectangle&) const;
 };

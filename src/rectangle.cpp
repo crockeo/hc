@@ -33,7 +33,17 @@ void Rectangle::updateSDLRect() {
     this->sdlRect.h = (int)h;
 }
 
+// Getting different sides of the rectangle.
+float Rectangle::top()    const { return this->y;           }
+float Rectangle::bottom() const { return this->y + this->h; }
+float Rectangle::left()   const { return this->x;           }
+float Rectangle::right()  const { return this->x + this->w; }
+
 // Checking if two rectangles collide.
 bool Rectangle::collides(const Rectangle& rect) const {
-    return false;
+    return ((this->left()  < rect.right() && this->left()  > rect.left()) ||
+            (this->right() > rect.left()  && this->right() < rect.right())) &&
+
+           ((this->top()    < rect.bottom() && this->top()    > rect.top()) &&
+            (this->bottom() > rect.top()    && this->bottom() < rect.bottom()));
 }
