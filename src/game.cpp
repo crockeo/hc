@@ -34,12 +34,19 @@ void game::update(GameState& g, float dt) {
     Collision c = g.position.dirCollides(thingy);
     switch (c) {
     case COLLISION_TOP:
-        g.position.y = thingy.bottom();
-        dy = 0;
+        if (dy <= 0) {
+            g.position.y = thingy.bottom();
+            dy = 0;
+        }
+
         break;
     case COLLISION_BOTTOM:
-        g.position.y = thingy.top() - g.position.h;
-        dy = 0;
+        if (dy >= 0) {
+            g.position.y = thingy.top() - g.position.h;
+            onGround = true;
+            dy = 0;
+        }
+
         break;
     case COLLISION_LEFT:
         g.position.x = thingy.right();
