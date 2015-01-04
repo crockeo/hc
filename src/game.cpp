@@ -16,6 +16,7 @@ const float minspeed =   5;
 const float accel    = 640;
 
 Rectangle thingy(2, 400, 20, 80);
+Rectangle base  (-1000, 480, 2000, 10);
 
 bool  mx = false, my = false;
 float dx = 0    , dy = 0;
@@ -26,47 +27,46 @@ bool around(float target, float offset, float value) {
            value > target - offset;
 }
 
-// Updating the game.
-void game::update(GameState& g, float dt) {
-    for (auto it = g.timers.begin(); it != g.timers.end(); it++)
-        std::get<1>(*it).update();
-
-    Collision c = g.position.dirCollides(thingy);
-    switch (c) {
+void performCollision(Rectangle& src, const Rectangle& target) {
+    switch (src.dirCollides(target)) {
     case COLLISION_TOP:
         if (dy <= 0) {
-            g.position.y = thingy.bottom();
+            src.y = target.bottom();
             dy = 0;
         }
 
         break;
     case COLLISION_BOTTOM:
         if (dy >= 0) {
-            g.position.y = thingy.top() - g.position.h;
+            src.y = target.top() - src.h;
             onGround = true;
             dy = 0;
         }
 
         break;
     case COLLISION_LEFT:
-        g.position.x = thingy.right();
+        src.x = target.right();
         dx /= -2;
         break;
     case COLLISION_RIGHT:
-        g.position.x = thingy.left() - g.position.w;
+        src.x = target.left() - src.w;
         dx /= -2;
         break;
     case COLLISION_NONE:
         break;
     }
+}
+
+// Updating the game.
+void game::update(GameState& g, float dt) {
+    for (auto it = g.timers.begin(); it != g.timers.end(); it++)
+        std::get<1>(*it).update();
+
+    performCollision(g.position, thingy);
+    performCollision(g.position, base);
 
     mx = false;
     my = false;
-
-    if (g.position.x > 650)
-        g.position.x = -g.position.w - 10;
-    if (g.position.x < -g.position.w - 10)
-        g.position.x = 650;
 
     if (keyboard::getKeyState(SDL_SCANCODE_D)) {
         if (dx < 0)
@@ -85,6 +85,7 @@ void game::update(GameState& g, float dt) {
     }
 
     if (onGround && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
+        onGround = false;
         dy = -400;
     }
 
@@ -98,29 +99,33 @@ void game::update(GameState& g, float dt) {
             dx = 0;
     }
 
-    if (g.position.y + g.position.h < 481) {
+    if (!onGround)
         dy += accel * dt;
-        onGround = false;
-    } else {
-        g.position.y = 480 - g.position.h;
-        onGround = true;
-        dy = 0;
-    }
 
     g.position.translate(dx * dt, dy * dt);
+    g.cam.translate((g.position.x - g.cam.x - 320 + 50) * dt * 4, (g.position.y - g.cam.y - 240 + 50) * dt * 4);
 }
 
 // Rendering the game.
 void game::render(GameState g, Window& w, const Assets& a) {
-    Rectangle r(0, 0, 64, 64);
+    Rectangle r(0 - g.cam.x, 0 - g.cam.y, 64, 64);
     Rectangle s(0, 0, 16, 16);
-    Rectangle r2(80, 0, 64, 64);
-    Rectangle r3(0, 80, 64, 64);
-    Rectangle r4(80, 80, 192, 64);
+    Rectangle r2(80 - g.cam.x, 0 - g.cam.y, 64, 64);
+    Rectangle r3(0 - g.cam.x, 80 - g.cam.y, 64, 64);
+    Rectangle r4(80 - g.cam.x, 80 - g.cam.y, 192, 64);
+
+    Rectangle rt(thingy);
+    rt.translate(-g.cam.x, -g.cam.y);
+
+    Rectangle rb(base);
+    rb.translate(-g.cam.x, -g.cam.y);
+
+    g.position.translate(-g.cam.x, -g.cam.y);
 
     SDL_RenderClear(w.getRenderer());
 
-    a.spriteSheets.at("res/forest_tiles.png").blit(w, thingy, 1, 0);
+    a.spriteSheets.at("res/forest_tiles.png").blit(w, rb, 0, 0);
+    a.spriteSheets.at("res/forest_tiles.png").blit(w, rt, 1, 0);
     a.sprites.at("res/forest_tiles.png").blit(w, r, s);
     a.spriteSheets.at("res/forest_tiles.png").blit(w, r2, 0, 0);
     a.animations.at("res/forest_tiles.png").blit(w, r3);

@@ -7,6 +7,7 @@
 #include <string>
 
 #include "rectangle.hpp"
+#include "camera.hpp"
 #include "timer.hpp"
 
 //////////
@@ -16,6 +17,8 @@
 struct GameState {
     // Constructing a default game state.
     GameState();
+
+    Camera cam;
 
     std::unordered_map<std::string, Timer&> timers;
 

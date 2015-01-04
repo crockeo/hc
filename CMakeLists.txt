@@ -20,6 +20,7 @@ set(SOURCES
     src/rectangle.cpp
     src/keyboard.cpp
     src/assets.cpp
+    src/camera.cpp
     src/sprite.cpp
     src/window.cpp
     src/delta.cpp
