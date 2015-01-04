@@ -103,7 +103,8 @@ void game::update(GameState& g, float dt) {
         dy += accel * dt;
 
     g.position.translate(dx * dt, dy * dt);
-    g.cam.translate((g.position.x - g.cam.x - 320 + 50) * dt * 4, (g.position.y - g.cam.y - 240 + 50) * dt * 4);
+
+    g.cam.translate((g.position.x - g.cam.x - 320 + 50) * dt * 8, (g.position.y - g.cam.y - 240 + 50) * dt * 8);
 }
 
 // Rendering the game.
