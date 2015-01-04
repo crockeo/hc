@@ -31,9 +31,26 @@ void game::update(GameState& g, float dt) {
     for (auto it = g.timers.begin(); it != g.timers.end(); it++)
         std::get<1>(*it).update();
 
-    if (g.position.collides(thingy)) {
+    Collision c = g.position.dirCollides(thingy);
+    switch (c) {
+    case COLLISION_TOP:
+        g.position.y = thingy.bottom();
+        dy = 0;
+        break;
+    case COLLISION_BOTTOM:
+        g.position.y = thingy.top() - g.position.h;
+        dy = 0;
+        break;
+    case COLLISION_LEFT:
         g.position.x = thingy.right();
-        dx = 0;
+        dx /= -2;
+        break;
+    case COLLISION_RIGHT:
+        g.position.x = thingy.left() - g.position.w;
+        dx /= -2;
+        break;
+    case COLLISION_NONE:
+        break;
     }
 
     mx = false;
