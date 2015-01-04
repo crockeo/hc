@@ -1,5 +1,12 @@
 #include "rectangle.hpp"
 
+//////////////
+// Includes //
+#include <math.h>
+
+//////////
+// Code //
+
 // Creating a god damn motherfucking rectangle.
 Rectangle::Rectangle(float x, float y, float w, float h) {
     this->x = x;
@@ -39,6 +46,10 @@ float Rectangle::bottom() const { return this->y + this->h; }
 float Rectangle::left()   const { return this->x;           }
 float Rectangle::right()  const { return this->x + this->w; }
 
+// The center of the rectangle on different axes.
+float Rectangle::centerX() const { return this->x + this->w / 2; }
+float Rectangle::centerY() const { return this->y + this->h / 2; }
+
 // Checking if two rectangles collide.
 bool Rectangle::collides(const Rectangle& rect) const {
     Rectangle sw = this->w <= rect.w ? *this : rect;
@@ -54,4 +65,24 @@ bool Rectangle::collides(const Rectangle& rect) const {
     bool cBottom = sh.bottom() > bh.top()    && sh.bottom() < bh.bottom();
 
     return (cLeft || cRight) && (cTop || cBottom);
+}
+
+// Checking if two rectangles collide and returning the direction of the
+// collision.
+Collision Rectangle::dirCollides(const Rectangle& rect) const {
+    if (!this->collides(rect))
+        return COLLISION_NONE;
+
+    float dx = fabs(this->centerX() - rect.centerX());
+    float dy = fabs(this->centerY() - rect.centerY());
+
+    if (fabs(this->centerX() - rect.centerX()) > (this->centerY() - rect.centerY())) {
+        if (this->centerX() <= rect.centerX())
+            return COLLISION_RIGHT;
+        return COLLISION_LEFT;
+    } else {
+        if (this->centerY() <= rect.centerY())
+            return COLLISION_BOTTOM;
+        return COLLISION_TOP;
+    }
 }

@@ -8,6 +8,15 @@
 //////////
 // Code //
 
+// Different kinds of collisions that can occur.
+enum Collision {
+    COLLISION_TOP,
+    COLLISION_BOTTOM,
+    COLLISION_LEFT,
+    COLLISION_RIGHT,
+    COLLISION_NONE
+};
+
 struct Rectangle {
     SDL_Rect sdlRect;
     float x, y, w, h;
@@ -30,8 +39,16 @@ struct Rectangle {
     float left()   const;
     float right()  const;
 
+    // The center of the rectangle on different axes.
+    float centerX() const;
+    float centerY() const;
+
     // Checking if two rectangles collide.
     bool collides(const Rectangle&) const;
+
+    // Checking if two rectangles collide and returning the direction of the
+    // collision.
+    Collision dirCollides(const Rectangle&) const;
 };
 
 #endif
