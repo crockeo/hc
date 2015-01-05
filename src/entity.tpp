@@ -20,11 +20,7 @@ Entity<T>::Entity() { this->position = Rectangle(0, 0, 0, 0); }
 
 // Updating this entity and returning a new one.
 template <class T>
-T Entity<T>::update(const GameState& gs, float dt) {
-    // If this function is not overloaded, it attempts to return the default
-    // constructor for the type T.
-    return T();
-}
+void Entity<T>::update(const GameState& gs, float dt) { }
 
 // Rendering this entity.
 template <class T>

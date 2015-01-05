@@ -25,7 +25,7 @@ public:
     Entity();
 
     // Updating this entity and returning a new one.
-    virtual T update(const GameState&, float);
+    virtual void update(const GameState&, float);
     
     // Rendering this entity.
     virtual void render(const Window&, const Camera&);
