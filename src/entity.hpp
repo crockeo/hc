@@ -5,14 +5,16 @@
 // Includes //
 #include "gamestate.hpp"
 #include "rectangle.hpp"
+#include "assets.hpp"
 #include "camera.hpp"
 #include "window.hpp"
 
 //////////
 // Code //
 
+class GameState;
+
 // A class to represent an entity.
-template <class T>
 class Entity {
 protected:
     Rectangle position;
@@ -28,7 +30,7 @@ public:
     virtual void update(const GameState&, float);
     
     // Rendering this entity.
-    virtual void render(const Window&, const Camera&);
+    virtual void render(const Window&, const Camera&, const Assets&);
 
     // Getting a reference to the rectangle.
     Rectangle getPosition() const;
@@ -39,7 +41,5 @@ public:
     float getWidth()  const;
     float getHeight() const;
 };
-
-#include "entity.tpp"
 
 #endif
