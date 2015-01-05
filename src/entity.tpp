@@ -1,5 +1,12 @@
 #include "entity.hpp"
 
+//////////////
+// Includes //
+#include "gamestate.hpp"
+#include "rectangle.hpp"
+#include "camera.hpp"
+#include "window.hpp"
+
 //////////
 // Code //
 
