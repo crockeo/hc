@@ -8,6 +8,7 @@
 
 #include "rectangle.hpp"
 #include "camera.hpp"
+#include "player.hpp"
 #include "timer.hpp"
 
 //////////
@@ -23,6 +24,8 @@ struct GameState {
     std::unordered_map<std::string, Timer&> timers;
 
     Rectangle position;
+
+    Player player;
 };
 
 #endif

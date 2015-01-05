@@ -12,8 +12,6 @@
 //////////
 // Code //
 
-class GameState;
-
 // A class to represent an entity.
 class Entity {
 protected:

@@ -22,6 +22,7 @@ set(SOURCES
     src/assets.cpp
     src/camera.cpp
     src/entity.cpp
+    src/player.cpp
     src/sprite.cpp
     src/window.cpp
     src/delta.cpp
