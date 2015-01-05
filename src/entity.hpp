@@ -28,7 +28,7 @@ public:
     virtual void update(const GameState&, float);
     
     // Rendering this entity.
-    virtual void render(const Window&, const Camera&, const Assets&);
+    virtual void render(Window&, const Camera&, const Assets&);
 
     // Getting a reference to the rectangle.
     Rectangle getPosition() const;

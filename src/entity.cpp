@@ -21,7 +21,7 @@ Entity::Entity() : position(0, 0, 0, 0) { }
 void Entity::update(const GameState& gs, float dt) { }
 
 // Rendering this entity.
-void Entity::render(const Window& w, const Camera& cam, const Assets& assets) { }
+void Entity::render(Window& w, const Camera& cam, const Assets& assets) { }
 
 // Getting a reference to the rectangle.
 Rectangle Entity::getPosition() const { return this->position; }
