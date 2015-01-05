@@ -8,7 +8,7 @@
 // Code //
 
 const float MIN_SPEED =   5;
-const float ACCEL     = 200;
+const float ACCEL     = 640;
 
 // Checking if a value is near another value.
 bool aroundNum(float target, float offset, float value) {
@@ -17,7 +17,8 @@ bool aroundNum(float target, float offset, float value) {
 }
 
 // Creating a player at a position.
-Player::Player(float x, float y) : Entity(Rectangle(x, y, 50, 50)) {
+Player::Player(float x, float y) :
+        Entity(Rectangle(x, y, 100, 100)) {
     this->onGround = false;
     this->dx = 0;
     this->dy = 0;

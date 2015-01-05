@@ -61,6 +61,7 @@ void performCollision(Rectangle& src, const Rectangle& target) {
 void game::update(GameState& g, float dt) {
     for (auto it = g.timers.begin(); it != g.timers.end(); it++)
         std::get<1>(*it).update();
+    g.player.update(g, dt);
 
     performCollision(g.position, thingy);
     performCollision(g.position, base);
@@ -125,6 +126,7 @@ void game::render(GameState g, Window& w, const Assets& a) {
 
     SDL_RenderClear(w.getRenderer());
 
+    g.player.render(w, g.cam, a);
     a.spriteSheets.at("res/forest_tiles.png").blit(w, rb, 0, 0);
     a.spriteSheets.at("res/forest_tiles.png").blit(w, rt, 1, 0);
     a.sprites.at("res/forest_tiles.png").blit(w, r, s);

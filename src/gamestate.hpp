@@ -8,10 +8,13 @@
 
 #include "rectangle.hpp"
 #include "camera.hpp"
+#include "entity.hpp"
 #include "timer.hpp"
 
 //////////
 // Code //
+
+class Entity;
 
 // A class to house the current state of the game.
 struct GameState {
@@ -23,6 +26,8 @@ struct GameState {
     std::unordered_map<std::string, Timer&> timers;
 
     Rectangle position;
+
+    Entity& player;
 };
 
 #endif
