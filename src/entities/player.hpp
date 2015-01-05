@@ -3,11 +3,11 @@
 
 //////////////
 // Includes //
-#include "gamestate.hpp"
-#include "assets.hpp"
-#include "camera.hpp"
-#include "entity.hpp"
-#include "window.hpp"
+#include "../gamestate.hpp"
+#include "../assets.hpp"
+#include "../camera.hpp"
+#include "../entity.hpp"
+#include "../window.hpp"
 
 //////////
 // Code //

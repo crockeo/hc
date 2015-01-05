@@ -2,7 +2,7 @@
 
 //////////////
 // Includes //
-#include "keyboard.hpp"
+#include "../keyboard.hpp"
 
 //////////
 // Code //
@@ -53,6 +53,9 @@ void Player::update(const GameState& gs, float dt) {
         if (aroundNum(0, MIN_SPEED, dx))
             dx = 0;
     }
+
+    if (!onGround)
+        dy += ACCEL * dt;
 
     this->position.translate(this->dx * dt, this->dy * dt);
 }

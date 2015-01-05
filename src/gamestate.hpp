@@ -27,7 +27,7 @@ struct GameState {
 
     Rectangle position;
 
-    Entity& player;
+    Entity* player;
 };
 
 #endif

@@ -13,6 +13,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 # Defining the set of sources.
 set(SOURCES
+    src/entities/player.cpp
     src/hcexception.cpp
     src/spritesheet.cpp
     src/animation.cpp
@@ -22,7 +23,6 @@ set(SOURCES
     src/assets.cpp
     src/camera.cpp
     src/entity.cpp
-    src/player.cpp
     src/sprite.cpp
     src/window.cpp
     src/delta.cpp
