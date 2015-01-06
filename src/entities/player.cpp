@@ -16,6 +16,40 @@ bool aroundNum(float target, float offset, float value) {
            value > target - offset;
 }
 
+// Colliding with a given rectangle.
+void Player::collide(const Entity& e) {
+    Rectangle& src    = this->position;
+    Rectangle  target = e.getPosition();
+
+    switch (src.dirCollides(target)) {
+    case COLLISION_TOP:
+        if (this->dy <= 0) {
+            src.y = target.bottom();
+            this->dy = 0;
+        }
+
+        break;
+    case COLLISION_BOTTOM:
+        if (this->dy >= 0) {
+            src.y = target.top() - src.h;
+            onGround = true;
+            this->dy = 0;
+        }
+
+        break;
+    case COLLISION_LEFT:
+        src.x = target.right();
+        this->dx /= -2;
+        break;
+    case COLLISION_RIGHT:
+        src.x = target.left() - src.w;
+        this->dx /= -2;
+        break;
+    case COLLISION_NONE:
+        break;
+    }
+}
+
 // Creating a player at a position.
 Player::Player(float x, float y) :
         Entity(Rectangle(x, y, 100, 100)) {
@@ -28,38 +62,9 @@ Player::Player(float x, float y) :
 void Player::update(const GameState& gs, float dt) {
     bool mx = false;
 
-    for (auto it = gs.blocks.begin(); it != gs.blocks.end(); it++) {
-        Rectangle& src    = this->position;
-        Rectangle  target = (*it)->getPosition();
-
-        switch (src.dirCollides(target)) {
-        case COLLISION_TOP:
-            if (this->dy <= 0) {
-                src.y = target.bottom();
-                this->dy = 0;
-            }
-
-            break;
-        case COLLISION_BOTTOM:
-            if (this->dy >= 0) {
-                src.y = target.top() - src.h;
-                onGround = true;
-                this->dy = 0;
-            }
-
-            break;
-        case COLLISION_LEFT:
-            src.x = target.right();
-            this->dx /= -2;
-            break;
-        case COLLISION_RIGHT:
-            src.x = target.left() - src.w;
-            this->dx /= -2;
-            break;
-        case COLLISION_NONE:
-            break;
-        }
-    }
+    bool below;
+    for (auto it = gs.blocks.begin(); it != gs.blocks.end(); it++)
+        this->collide(*(*it));
 
     if (keyboard::getKeyState(SDL_SCANCODE_D)) {
         if (this->dx < 0)

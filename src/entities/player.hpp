@@ -18,6 +18,9 @@ private:
     bool onGround;
     float dx, dy;
 
+    // Colliding with a given rectangle.
+    void collide(const Entity&);
+
 public:
     // Creating a player at a position.
     Player(float, float);
