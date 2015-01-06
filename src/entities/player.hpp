@@ -21,6 +21,12 @@ private:
     // Colliding with a given rectangle.
     void collide(const Entity&);
 
+    // Moving the player based on player input.
+    bool input(float);
+
+    // Decelerating the player.
+    void decelerate(float, bool);
+
 public:
     // Creating a player at a position.
     Player(float, float);

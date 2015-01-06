@@ -50,6 +50,50 @@ void Player::collide(const Entity& e) {
     }
 }
 
+// Moving the player based on player input.
+bool Player::input(float dt) {
+    bool mx = false;
+
+    // Moving left.
+    if (keyboard::getKeyState(SDL_SCANCODE_D)) {
+        if (this->dx < 0)
+            this->dx += 2 * ACCEL * dt;
+        else
+            this->dx += ACCEL * dt;
+        mx = true;
+    }
+
+    // Moving right.
+    if (keyboard::getKeyState(SDL_SCANCODE_A)) {
+        if (this->dx > 0)
+            this->dx -= 2 * ACCEL * dt;
+        else
+            this->dx -= ACCEL * dt;
+        mx = true;
+    }
+
+    // Jumping.
+    if (onGround && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
+        onGround = false;
+        this->dy = -400;
+    }
+
+    return mx;
+}
+
+// Decelerating the player.
+void Player::decelerate(float dt, bool mx) {
+    if (!mx) {
+        if (this->dx > 0)
+            this->dx -= ACCEL * dt;
+        if (this->dx < 0)
+            this->dx += ACCEL * dt;
+
+        if (aroundNum(0, MIN_SPEED, this->dx))
+            this->dx = 0;
+    }
+}
+
 // Creating a player at a position.
 Player::Player(float x, float y) :
         Entity(Rectangle(x, y, 100, 100)) {
@@ -60,42 +104,10 @@ Player::Player(float x, float y) :
 
 // Overriding the update function.
 void Player::update(const GameState& gs, float dt) {
-    bool mx = false;
-
-    bool below;
     for (auto it = gs.blocks.begin(); it != gs.blocks.end(); it++)
         this->collide(*(*it));
 
-    if (keyboard::getKeyState(SDL_SCANCODE_D)) {
-        if (this->dx < 0)
-            this->dx += 2 * ACCEL * dt;
-        else
-            this->dx += ACCEL * dt;
-        mx = true;
-    }
-
-    if (keyboard::getKeyState(SDL_SCANCODE_A)) {
-        if (this->dx > 0)
-            this->dx -= 2 * ACCEL * dt;
-        else
-            this->dx -= ACCEL * dt;
-        mx = true;
-    }
-
-    if (!mx) {
-        if (this->dx > 0)
-            this->dx -= ACCEL * dt;
-        if (this->dx < 0)
-            this->dx += ACCEL * dt;
-
-        if (aroundNum(0, MIN_SPEED, this->dx))
-            this->dx = 0;
-    }
-
-    if (onGround && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
-        onGround = false;
-        this->dy = -400;
-    }
+    this->decelerate(dt, this->input(dt));
 
     if (!onGround)
         this->dy += ACCEL * dt;
