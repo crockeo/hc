@@ -5,6 +5,7 @@
 // Includes //
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 #include "rectangle.hpp"
 #include "camera.hpp"
@@ -26,6 +27,8 @@ struct GameState {
     std::unordered_map<std::string, Timer&> timers;
 
     Rectangle position;
+
+    std::vector<Entity*> blocks;
 
     Entity* player;
 };

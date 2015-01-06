@@ -28,34 +28,72 @@ Player::Player(float x, float y) :
 void Player::update(const GameState& gs, float dt) {
     bool mx = false;
 
+    for (auto it = gs.blocks.begin(); it != gs.blocks.end(); it++) {
+        Rectangle& src    = this->position;
+        Rectangle  target = (*it)->getPosition();
+
+        switch (src.dirCollides(target)) {
+        case COLLISION_TOP:
+            if (this->dy <= 0) {
+                src.y = target.bottom();
+                this->dy = 0;
+            }
+
+            break;
+        case COLLISION_BOTTOM:
+            if (this->dy >= 0) {
+                src.y = target.top() - src.h;
+                onGround = true;
+                this->dy = 0;
+            }
+
+            break;
+        case COLLISION_LEFT:
+            src.x = target.right();
+            this->dx /= -2;
+            break;
+        case COLLISION_RIGHT:
+            src.x = target.left() - src.w;
+            this->dx /= -2;
+            break;
+        case COLLISION_NONE:
+            break;
+        }
+    }
+
     if (keyboard::getKeyState(SDL_SCANCODE_D)) {
-        if (dx < 0)
-            dx += 2 * ACCEL * dt;
+        if (this->dx < 0)
+            this->dx += 2 * ACCEL * dt;
         else
-            dx += ACCEL * dt;
+            this->dx += ACCEL * dt;
         mx = true;
     }
 
     if (keyboard::getKeyState(SDL_SCANCODE_A)) {
-        if (dx > 0)
-            dx -= 2 * ACCEL * dt;
+        if (this->dx > 0)
+            this->dx -= 2 * ACCEL * dt;
         else
-            dx -= ACCEL * dt;
+            this->dx -= ACCEL * dt;
         mx = true;
     }
 
     if (!mx) {
-        if (dx > 0)
-            dx -= ACCEL * dt;
-        if (dx < 0)
-            dx += ACCEL * dt;
+        if (this->dx > 0)
+            this->dx -= ACCEL * dt;
+        if (this->dx < 0)
+            this->dx += ACCEL * dt;
 
-        if (aroundNum(0, MIN_SPEED, dx))
-            dx = 0;
+        if (aroundNum(0, MIN_SPEED, this->dx))
+            this->dx = 0;
+    }
+
+    if (onGround && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
+        onGround = false;
+        this->dy = -400;
     }
 
     if (!onGround)
-        dy += ACCEL * dt;
+        this->dy += ACCEL * dt;
 
     this->position.translate(this->dx * dt, this->dy * dt);
 }
