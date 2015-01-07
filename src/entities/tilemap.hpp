@@ -3,6 +3,9 @@
 
 //////////////
 // Includes //
+#include <istream>
+#include <string>
+
 #include "../assets.hpp"
 #include "../camera.hpp"
 #include "../entity.hpp"
@@ -33,5 +36,11 @@ public:
     // Getting the collision layer.
     std::vector<Tile> getCollisionTiles();
 };
+
+// Loading a tile map from an istream.
+TileMap loadTileMap(std::istream&);
+
+// Loading a tile map from a location on disk.
+TileMap loadTileMap(std::string);
 
 #endif

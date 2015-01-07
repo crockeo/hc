@@ -1,5 +1,9 @@
 #include "tilemap.hpp"
 
+//////////////
+// Includes //
+#include <fstream>
+
 //////////
 // Code //
 
@@ -28,3 +32,41 @@ std::vector<Tile> TileMap::getTiles(int layer) {
 
 // Getting the collision layer.
 std::vector<Tile> TileMap::getCollisionTiles() { return this->getTiles(1); }
+
+// Loading a tile map from an istream.
+TileMap loadTileMap(std::istream& stream) {
+    TileMap tm;
+
+    std::string prefix;
+    int type, layer, x, y;
+    while (!stream.eof()) {
+        // Skipping a line if it's not the right kind of thing.
+        stream >> prefix;
+        if (prefix.compare("tile") != 0) {
+            while (!stream.eof() && !(stream.peek() == '\n'))
+                stream.get();
+            continue;
+        }
+
+        stream >> type;
+        stream >> layer;
+        stream >> x;
+        stream >> y;
+
+        tm.addTile(Tile(static_cast<TileType>(type), layer, x, y));
+    }
+
+    return tm;
+}
+
+// Loading a tile map from a location on disk.
+TileMap loadTileMap(std::string path) {
+    std::ifstream file(path);
+    if (!file.good())
+        return TileMap();
+
+    TileMap tm = loadTileMap(file);
+
+    file.close();
+    return tm;
+}
