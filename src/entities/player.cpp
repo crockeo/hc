@@ -34,7 +34,7 @@ void Player::collide(const Entity& e) {
     case COLLISION_BOTTOM:
         if (this->dy >= 0) {
             src.y = target.top() - src.h;
-            onGround = true;
+            canJump = true;
             this->dy = 0;
         }
 
@@ -75,8 +75,8 @@ bool Player::input(float dt) {
     }
 
     // Jumping.
-    if (onGround && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
-        onGround = false;
+    if (canJump && keyboard::getKeyState(SDL_SCANCODE_SPACE)) {
+        canJump = false;
         this->dy = -400;
     }
 
@@ -99,7 +99,7 @@ void Player::decelerate(float dt, bool mx) {
 // Creating a player at a position.
 Player::Player(float x, float y) :
         Entity(Rectangle(x, y, 100, 100)) {
-    this->onGround = false;
+    this->canJump = false;
     this->dx = 0;
     this->dy = 0;
 }
@@ -114,9 +114,7 @@ void Player::update(const GameState& gs, float dt) {
         this->collide(*it);
 
     this->decelerate(dt, this->input(dt));
-
-    if (!onGround)
-        this->dy += ACCEL * dt;
+    this->dy += ACCEL * dt;
 
     this->position.translate(this->dx * dt, this->dy * dt);
 }

@@ -15,7 +15,7 @@
 // The player class.
 class Player : public Entity {
 private:
-    bool onGround;
+    bool canJump;
     float dx, dy;
 
     // Colliding with a given rectangle.
