@@ -26,6 +26,9 @@ public:
 
     // Rendering every single tile in a tile map.
     void render(Window&, const Camera&, const Assets&);
+
+    // Accessing a copy of the tiles.
+    std::vector<Tile> getTiles();
 };
 
 #endif
