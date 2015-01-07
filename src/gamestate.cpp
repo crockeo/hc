@@ -19,11 +19,14 @@ GameState::GameState() :
 
     // Setting up the tile map.
     TileMap* tm = new TileMap();
-    tm->addTile(Tile(HC_TILE_GRASS, 0, 4));
-    tm->addTile(Tile(HC_TILE_GRASS, 1, 4));
-    tm->addTile(Tile(HC_TILE_GRASS, 2, 5));
-    tm->addTile(Tile(HC_TILE_GRASS, 6, 8));
-    tm->addTile(Tile(HC_TILE_GRASS, 7, 9));
+    tm->addTile(Tile(HC_TILE_GRASS, 1, 0, 4));
+    tm->addTile(Tile(HC_TILE_GRASS, 1, 1, 4));
+    tm->addTile(Tile(HC_TILE_GRASS, 1, 2, 5));
+    tm->addTile(Tile(HC_TILE_GRASS, 1, 6, 8));
+    tm->addTile(Tile(HC_TILE_GRASS, 1, 7, 9));
+
+    tm->addTile(Tile(HC_TILE_DARK, 2, 1, 3));
+    tm->addTile(Tile(HC_TILE_GRASS, 3, 1, 3));
 
     this->tilemap = (Entity*)tm;
     this->player = new Player(0, 0);

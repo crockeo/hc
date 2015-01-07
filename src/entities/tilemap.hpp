@@ -15,7 +15,7 @@
 // The map of tiles in the game world.
 class TileMap : Entity {
 private:
-    std::vector<Tile> tiles;
+    std::vector<std::vector<Tile>> tileLayers;
 
 public:
     // Constructing an empty set of tiles.
@@ -28,7 +28,10 @@ public:
     void render(Window&, const Camera&, const Assets&);
 
     // Accessing a copy of the tiles.
-    std::vector<Tile> getTiles();
+    std::vector<Tile> getTiles(int);
+
+    // Getting the collision layer.
+    std::vector<Tile> getCollisionTiles();
 };
 
 #endif

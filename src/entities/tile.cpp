@@ -3,20 +3,43 @@
 //////////
 // Code //
 
-// Creating a new tile type at a given location.
+
+// Creating a new tile type at a given location and layer.
+Tile::Tile(TileType t, int layer, int x, int y) :
+        Entity(Rectangle(x * HC_TILE_WIDTH, y * HC_TILE_HEIGHT,
+                             HC_TILE_WIDTH,     HC_TILE_HEIGHT)) {
+    this->type = t;
+    this->layer = layer;
+    this->x = x;
+    this->y = y;
+}
+
+
+// Creating a new tile on the first layer at a given location.
 Tile::Tile(TileType t, int x, int y) :
         Entity(Rectangle(x * HC_TILE_WIDTH, y * HC_TILE_HEIGHT,
                              HC_TILE_WIDTH,     HC_TILE_HEIGHT)) {
     this->type = t;
+    this->layer = 1;
     this->x = x;
     this->y = y;
 }
 
 // Rendering the tile.
 void Tile::render(Window& w, const Camera& c, const Assets& a) {
+    float scale = this->layer == 1 ? 1 : 1 + (this->layer / 50.f);
+    Rectangle pos = Rectangle(this->position.x - c.x / scale, this->position.y - c.y / scale,
+                              this->position.w       / scale, this->position.h       / scale);
+
     switch (this->type) {
     case HC_TILE_GRASS:
-        a.spriteSheets.at("res/forest_tiles.png").blit(w, this->position.fTranslate(-c.x, -c.y), 0, 0);
+        a.spriteSheets.at("res/forest_tiles.png").blit(w, pos, 0, 0);
+        break;
+    case HC_TILE_DARK:
+        a.spriteSheets.at("res/forest_tiles.png").blit(w, pos, 1, 0);
         break;
     }
 }
+
+// Getting the layer of the tile.
+int Tile::getLayer() { return this->layer; }

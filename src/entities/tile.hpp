@@ -16,21 +16,29 @@
 
 // A set of tile types.
 enum TileType {
-    HC_TILE_GRASS
+    HC_TILE_GRASS,
+    HC_TILE_DARK
 };
 
 // Representing a single tile in the world.
 class Tile : public Entity {
 private:
     TileType type;
+    int layer;
     int x, y;
 
 public:
-    // Creating a new tile type at a given location.
+    // Creating a new tile type at a given location and layer.
+    Tile(TileType, int, int, int);
+
+    // Creating a new tile on the first layer at a given location.
     Tile(TileType, int, int);
 
     // Rendering the tile.
     void render(Window&, const Camera&, const Assets&);
+
+    // Getting the layer of the tile.
+    int getLayer();
 };
 
 #endif
