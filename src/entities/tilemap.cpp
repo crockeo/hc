@@ -16,4 +16,4 @@ void TileMap::render(Window& w, const Camera& c, const Assets& a) {
 }
 
 // Accessing a copy of the tiles.
-std::vector<Tile> TileMap:getTiles() { return this->tiles; }
+std::vector<Tile> TileMap::getTiles() { return this->tiles; }

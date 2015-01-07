@@ -76,7 +76,7 @@ Collision Rectangle::dirCollides(const Rectangle& rect) const {
     float dx = fabs(this->centerX() - rect.centerX());
     float dy = fabs(this->centerY() - rect.centerY());
 
-    if (rect.h > rect.w && dx > dy) {
+    if (rect.h >= rect.w && dx > dy) {
         if (this->centerX() <= rect.centerX())
             return COLLISION_RIGHT;
         return COLLISION_LEFT;

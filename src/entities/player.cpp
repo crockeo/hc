@@ -3,6 +3,8 @@
 //////////////
 // Includes //
 #include "../keyboard.hpp"
+#include "tilemap.hpp"
+#include "tile.hpp"
 
 //////////
 // Code //
@@ -106,6 +108,10 @@ Player::Player(float x, float y) :
 void Player::update(const GameState& gs, float dt) {
     for (auto it = gs.blocks.begin(); it != gs.blocks.end(); it++)
         this->collide(*(*it));
+
+    std::vector<Tile> tiles = ((TileMap*)gs.tilemap)->getTiles();
+    for (auto it = tiles.begin(); it != tiles.end(); it++)
+        this->collide(*it);
 
     this->decelerate(dt, this->input(dt));
 

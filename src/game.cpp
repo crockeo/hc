@@ -30,6 +30,7 @@ void game::update(GameState& g, float dt) {
 void game::render(GameState g, Window& w, const Assets& a) {
     SDL_RenderClear(w.getRenderer());
 
+    g.tilemap->render(w, g.cam, a);
     g.player->render(w, g.cam, a);
     for (auto it = g.blocks.begin(); it != g.blocks.end(); it++)
         (*it)->render(w, g.cam, a);

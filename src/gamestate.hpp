@@ -30,6 +30,7 @@ struct GameState {
 
     std::vector<Entity*> blocks;
 
+    Entity* tilemap;
     Entity* player;
 };
 
