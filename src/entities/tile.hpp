@@ -17,7 +17,8 @@
 // A set of tile types.
 enum TileType {
     HC_TILE_GRASS,
-    HC_TILE_DARK
+    HC_TILE_DARK,
+    HC_TILE_WOOD
 };
 
 // Representing a single tile in the world.

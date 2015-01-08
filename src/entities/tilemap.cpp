@@ -78,7 +78,7 @@ TileMap loadTileMap(std::string path) {
 
 // Writing a tile map to an ostream.
 bool saveTileMap(std::ostream& stream, TileMap tm) {
-    for (int i = 0; i < tm.layers(); i++) {
+    for (int i = 1; i <= tm.layers(); i++) {
         std::vector<Tile> layer = tm.getTiles(i);
         for (auto it = layer.begin(); it != layer.end(); it++) {
             stream << "tile"

@@ -28,8 +28,7 @@ Tile::Tile(TileType t, int x, int y) :
 // Rendering the tile.
 void Tile::render(Window& w, const Camera& c, const Assets& a) {
     float scale = this->layer == 1 ? 1 : 1 + (this->layer / 50.f);
-    Rectangle pos = Rectangle(this->position.x - c.x / scale, this->position.y - c.y / scale,
-                              this->position.w       / scale, this->position.h       / scale);
+    Rectangle pos = this->position.fTranslate(-c.x / scale, -c.y / scale);
 
     switch (this->type) {
     case HC_TILE_GRASS:
@@ -37,6 +36,9 @@ void Tile::render(Window& w, const Camera& c, const Assets& a) {
         break;
     case HC_TILE_DARK:
         a.spriteSheets.at("res/forest_tiles.png").blit(w, pos, 1, 0);
+        break;
+    case HC_TILE_WOOD:
+        a.sprites.at("res/wood1.jpg").blit(w, pos);
         break;
     }
 }

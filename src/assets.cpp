@@ -25,6 +25,10 @@ void loadAssets(Window& w, Assets& a) {
                       std::make_tuple("res/forest_tiles.png"),
                       std::make_tuple(w.getRenderer(), "res/forest_tiles.png"));
 
+    a.sprites.emplace(std::piecewise_construct,
+                      std::make_tuple("res/wood1.jpg"),
+                      std::make_tuple(w.getRenderer(), "res/wood1.jpg"));
+
     a.spriteSheets.emplace(std::piecewise_construct,
                            std::make_tuple("res/forest_tiles.png"),
                            std::make_tuple(w.getRenderer(), "res/forest_tiles.png", 15, 10, 16, 16));
