@@ -26,12 +26,17 @@ void TileMap::render(Window& w, const Camera& c, const Assets& a) {
 }
 
 // Accessing a copy of the tiles.
-std::vector<Tile> TileMap::getTiles(int layer) {
+std::vector<Tile> TileMap::getTiles(int layer) const {
     return this->tileLayers[layer - 1];
 }
 
 // Getting the collision layer.
-std::vector<Tile> TileMap::getCollisionTiles() { return this->getTiles(1); }
+std::vector<Tile> TileMap::getCollisionTiles() const {
+    return this->getTiles(1);
+}
+
+// Accessing the number of tiles.
+int TileMap::layers() const { return this->tileLayers.size(); }
 
 // Loading a tile map from an istream.
 TileMap loadTileMap(std::istream& stream) {
@@ -69,4 +74,34 @@ TileMap loadTileMap(std::string path) {
 
     file.close();
     return tm;
+}
+
+// Writing a tile map to an ostream.
+bool saveTileMap(std::ostream& stream, TileMap tm) {
+    for (int i = 0; i < tm.layers(); i++) {
+        std::vector<Tile> layer = tm.getTiles(i);
+        for (auto it = layer.begin(); it != layer.end(); it++) {
+            stream << "tile"
+                   << " " << static_cast<int>(it->getType())
+                   << " " << it->getLayer()
+                   << " " << it->getTX()
+                   << " " << it->getTY()
+                   << std::endl;
+        }
+    }
+
+    return false;
+}
+
+// Writing a tile map to a location on disk.
+bool saveTileMap(std::string path, TileMap tm) {
+    std::ofstream file(path);
+    if (!file.good())
+        return true;
+
+    bool b = saveTileMap(file, tm);
+
+    file.close();
+
+    return b;
 }

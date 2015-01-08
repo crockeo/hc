@@ -41,5 +41,12 @@ void Tile::render(Window& w, const Camera& c, const Assets& a) {
     }
 }
 
+// Getting the type of this tile.
+TileType Tile::getType() const { return this->type; }
+
 // Getting the layer of the tile.
-int Tile::getLayer() { return this->layer; }
+int Tile::getLayer() const { return this->layer; }
+
+// Getting the X & Y coordinates of the tile.
+int Tile::getTX() const { return this->x; }
+int Tile::getTY() const { return this->y; }

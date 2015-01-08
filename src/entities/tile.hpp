@@ -37,8 +37,15 @@ public:
     // Rendering the tile.
     void render(Window&, const Camera&, const Assets&);
 
+    // Getting the type of this tile.
+    TileType getType() const;
+
     // Getting the layer of the tile.
-    int getLayer();
+    int getLayer() const;
+
+    // Getting the X & Y coordinates of the tile.
+    int getTX() const;
+    int getTY() const;
 };
 
 #endif

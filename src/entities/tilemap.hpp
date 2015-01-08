@@ -4,6 +4,7 @@
 //////////////
 // Includes //
 #include <istream>
+#include <ostream>
 #include <string>
 
 #include "../assets.hpp"
@@ -31,10 +32,13 @@ public:
     void render(Window&, const Camera&, const Assets&);
 
     // Accessing a copy of the tiles.
-    std::vector<Tile> getTiles(int);
+    std::vector<Tile> getTiles(int) const;
 
     // Getting the collision layer.
-    std::vector<Tile> getCollisionTiles();
+    std::vector<Tile> getCollisionTiles() const;
+
+    // Accessing the number of tiles.
+    int layers() const;
 };
 
 // Loading a tile map from an istream.
@@ -42,5 +46,11 @@ TileMap loadTileMap(std::istream&);
 
 // Loading a tile map from a location on disk.
 TileMap loadTileMap(std::string);
+
+// Writing a tile map to an ostream.
+bool saveTileMap(std::ostream&, TileMap);
+
+// Writing a tile map to a location on disk.
+bool saveTileMap(std::string, TileMap);
 
 #endif
